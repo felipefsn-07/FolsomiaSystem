@@ -1,0 +1,13 @@
+C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Infra.Data\bin\Debug\netcoreapp3.1\FolsomiaSystem.Application.dll
+C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Infra.Data\bin\Debug\netcoreapp3.1\FolsomiaSystem.Domain.dll
+C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Infra.Data\obj\Debug\netcoreapp3.1\FolsomiaSystem.Infra.Data.csprojAssemblyReference.cache
+C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Infra.Data\obj\Debug\netcoreapp3.1\FolsomiaSystem.Infra.Data.AssemblyInfoInputs.cache
+C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Infra.Data\obj\Debug\netcoreapp3.1\FolsomiaSystem.Infra.Data.AssemblyInfo.cs
+C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Infra.Data\bin\Debug\netcoreapp3.1\FolsomiaSystem.Infra.Data.deps.json
+C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Infra.Data\bin\Debug\netcoreapp3.1\FolsomiaSystem.Infra.Data.dll
+C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Infra.Data\bin\Debug\netcoreapp3.1\FolsomiaSystem.Infra.Data.pdb
+C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Infra.Data\bin\Debug\netcoreapp3.1\FolsomiaSystem.Application.pdb
+C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Infra.Data\bin\Debug\netcoreapp3.1\FolsomiaSystem.Domain.pdb
+C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Infra.Data\obj\Debug\netcoreapp3.1\FolsomiaSystem.Infra.Data.csproj.CopyComplete
+C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Infra.Data\obj\Debug\netcoreapp3.1\FolsomiaSystem.Infra.Data.dll
+C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Infra.Data\obj\Debug\netcoreapp3.1\FolsomiaSystem.Infra.Data.pdb

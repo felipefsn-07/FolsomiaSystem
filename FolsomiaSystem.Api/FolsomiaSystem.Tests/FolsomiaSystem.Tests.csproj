@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Bogus" Version="29.0.2" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
+    <PackageReference Include="Moq" Version="4.14.1" />
+    <PackageReference Include="MySql.Data" Version="8.0.20" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
+    <PackageReference Include="xunit" Version="2.4.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
+    <PackageReference Include="coverlet.collector" Version="1.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FolsomiaSystem.Application\FolsomiaSystem.Application.csproj" />
+    <ProjectReference Include="..\FolsomiaSystem.Domain\FolsomiaSystem.Domain.csproj" />
+    <ProjectReference Include="..\FolsomiaSystem.Infra.Caching\FolsomiaSystem.Infra.Caching.csproj" />
+    <ProjectReference Include="..\FolsomiaSystem.Infra.Data\FolsomiaSystem.Infra.Data.csproj" />
+    <ProjectReference Include="..\FolsomiaSystem.Infra.ExternalServices.FolsomiaCountJob\FolsomiaSystem.Infra.ES.FolsomiaCountJob.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Images\Outputs\" />
+    <Folder Include="Data\" />
+  </ItemGroup>
+
+</Project>

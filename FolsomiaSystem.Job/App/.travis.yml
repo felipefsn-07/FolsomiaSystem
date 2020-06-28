@@ -1,0 +1,11 @@
+language: python
+python:
+    - 3.8
+install:
+    - pip install nose
+    - pip install opencv-python
+    - pip install numpy
+    - pip install argparse
+    - pip install logging
+    - pip install . --use-mirrors
+script: nosetests

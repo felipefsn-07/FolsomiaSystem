@@ -1,0 +1,13 @@
+C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Infra.ExternalServices.FolsomiaCountJob\obj\Debug\netcoreapp3.1\FolsomiaSystem.Infra.ES.FolsomiaCountJob.csprojAssemblyReference.cache
+C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Infra.ExternalServices.FolsomiaCountJob\obj\Debug\netcoreapp3.1\FolsomiaSystem.Infra.ES.FolsomiaCountJob.AssemblyInfoInputs.cache
+C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Infra.ExternalServices.FolsomiaCountJob\obj\Debug\netcoreapp3.1\FolsomiaSystem.Infra.ES.FolsomiaCountJob.AssemblyInfo.cs
+C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Infra.ExternalServices.FolsomiaCountJob\bin\Debug\netcoreapp3.1\FolsomiaSystem.Infra.ES.FolsomiaCountJob.deps.json
+C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Infra.ExternalServices.FolsomiaCountJob\bin\Debug\netcoreapp3.1\FolsomiaSystem.Infra.ES.FolsomiaCountJob.dll
+C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Infra.ExternalServices.FolsomiaCountJob\bin\Debug\netcoreapp3.1\FolsomiaSystem.Infra.ES.FolsomiaCountJob.pdb
+C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Infra.ExternalServices.FolsomiaCountJob\bin\Debug\netcoreapp3.1\FolsomiaSystem.Application.dll
+C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Infra.ExternalServices.FolsomiaCountJob\bin\Debug\netcoreapp3.1\FolsomiaSystem.Domain.dll
+C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Infra.ExternalServices.FolsomiaCountJob\bin\Debug\netcoreapp3.1\FolsomiaSystem.Application.pdb
+C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Infra.ExternalServices.FolsomiaCountJob\bin\Debug\netcoreapp3.1\FolsomiaSystem.Domain.pdb
+C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Infra.ExternalServices.FolsomiaCountJob\obj\Debug\netcoreapp3.1\FolsomiaSystem.Infra.ES.FolsomiaCountJob.csproj.CopyComplete
+C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Infra.ExternalServices.FolsomiaCountJob\obj\Debug\netcoreapp3.1\FolsomiaSystem.Infra.ES.FolsomiaCountJob.dll
+C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Infra.ExternalServices.FolsomiaCountJob\obj\Debug\netcoreapp3.1\FolsomiaSystem.Infra.ES.FolsomiaCountJob.pdb

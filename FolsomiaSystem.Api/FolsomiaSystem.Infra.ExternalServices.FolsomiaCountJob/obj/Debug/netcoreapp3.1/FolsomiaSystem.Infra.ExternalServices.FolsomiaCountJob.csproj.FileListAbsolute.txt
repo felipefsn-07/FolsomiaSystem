@@ -1,0 +1,5 @@
+C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Infra.ExternalServices.FolsomiaCountJob\bin\Debug\netcoreapp3.1\FolsomiaSystem.Application.dll
+C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Infra.ExternalServices.FolsomiaCountJob\bin\Debug\netcoreapp3.1\FolsomiaSystem.Domain.dll
+C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Infra.ExternalServices.FolsomiaCountJob\obj\Debug\netcoreapp3.1\FolsomiaSystem.Infra.ExternalServices.FolsomiaCountJob.csprojAssemblyReference.cache
+C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Infra.ExternalServices.FolsomiaCountJob\obj\Debug\netcoreapp3.1\FolsomiaSystem.Infra.ExternalServices.FolsomiaCountJob.AssemblyInfoInputs.cache
+C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Infra.ExternalServices.FolsomiaCountJob\obj\Debug\netcoreapp3.1\FolsomiaSystem.Infra.ExternalServices.FolsomiaCountJob.AssemblyInfo.cs

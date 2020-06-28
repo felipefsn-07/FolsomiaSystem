@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "Compilador do Microsoft (R) Visual C#",
+        "version": "3.6.0.0",
+        "fileVersion": "3.6.0-4.20224.5 (ec77c100)",
+        "semanticVersion": "3.6.0",
+        "language": "pt-BR"
+      },
+      "results": [
+        {
+          "ruleId": "CS0246",
+          "level": "error",
+          "message": "O nome do tipo ou do namespace \"ICache<>\" não pode ser encontrado (está faltando uma diretiva using ou uma referência de assembly?)",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/cs319260/Desktop/TCC/Sistema/FolsomiaSystem.WebApi/App/FolsomiaSystem.Infra.Caching/MemoryCache.cs",
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 41,
+                  "endLine": 7,
+                  "endColumn": 56
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "rules": {
+        "CS0246": {
+          "id": "CS0246",
+          "defaultLevel": "error",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry",
+              "NotConfigurable"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+C:\Users\cs319260\Desktop\TCC\Sistema\Folsomia-System\FolsomiaSystem.Infra.Caching\bin\Debug\netstandard2.0\FolsomiaSystem.Infra.Caching.deps.json
+C:\Users\cs319260\Desktop\TCC\Sistema\Folsomia-System\FolsomiaSystem.Infra.Caching\bin\Debug\netstandard2.0\FolsomiaSystem.Infra.Caching.dll
+C:\Users\cs319260\Desktop\TCC\Sistema\Folsomia-System\FolsomiaSystem.Infra.Caching\bin\Debug\netstandard2.0\FolsomiaSystem.Infra.Caching.pdb
+C:\Users\cs319260\Desktop\TCC\Sistema\Folsomia-System\FolsomiaSystem.Infra.Caching\bin\Debug\netstandard2.0\FolsomiaSystem.Domain.dll
+C:\Users\cs319260\Desktop\TCC\Sistema\Folsomia-System\FolsomiaSystem.Infra.Caching\bin\Debug\netstandard2.0\FolsomiaSystem.Domain.pdb
+C:\Users\cs319260\Desktop\TCC\Sistema\Folsomia-System\FolsomiaSystem.Infra.Caching\obj\Debug\netstandard2.0\FolsomiaSystem.Infra.Caching.csprojAssemblyReference.cache
+C:\Users\cs319260\Desktop\TCC\Sistema\Folsomia-System\FolsomiaSystem.Infra.Caching\obj\Debug\netstandard2.0\FolsomiaSystem.Infra.Caching.AssemblyInfoInputs.cache
+C:\Users\cs319260\Desktop\TCC\Sistema\Folsomia-System\FolsomiaSystem.Infra.Caching\obj\Debug\netstandard2.0\FolsomiaSystem.Infra.Caching.AssemblyInfo.cs
+C:\Users\cs319260\Desktop\TCC\Sistema\Folsomia-System\FolsomiaSystem.Infra.Caching\obj\Debug\netstandard2.0\FolsomiaSystem.Infra.Caching.csproj.CopyComplete
+C:\Users\cs319260\Desktop\TCC\Sistema\Folsomia-System\FolsomiaSystem.Infra.Caching\obj\Debug\netstandard2.0\FolsomiaSystem.Infra.Caching.dll
+C:\Users\cs319260\Desktop\TCC\Sistema\Folsomia-System\FolsomiaSystem.Infra.Caching\obj\Debug\netstandard2.0\FolsomiaSystem.Infra.Caching.pdb

@@ -1,0 +1,11 @@
+C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Application\obj\Debug\netcoreapp3.1\FolsomiaSystem.Application.csprojAssemblyReference.cache
+C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Application\obj\Debug\netcoreapp3.1\FolsomiaSystem.Application.AssemblyInfoInputs.cache
+C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Application\obj\Debug\netcoreapp3.1\FolsomiaSystem.Application.AssemblyInfo.cs
+C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Application\bin\Debug\netcoreapp3.1\FolsomiaSystem.Application.deps.json
+C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Application\bin\Debug\netcoreapp3.1\FolsomiaSystem.Application.dll
+C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Application\bin\Debug\netcoreapp3.1\FolsomiaSystem.Application.pdb
+C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Application\bin\Debug\netcoreapp3.1\FolsomiaSystem.Domain.dll
+C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Application\bin\Debug\netcoreapp3.1\FolsomiaSystem.Domain.pdb
+C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Application\obj\Debug\netcoreapp3.1\FolsomiaSystem.Application.csproj.CopyComplete
+C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Application\obj\Debug\netcoreapp3.1\FolsomiaSystem.Application.dll
+C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Application\obj\Debug\netcoreapp3.1\FolsomiaSystem.Application.pdb

@@ -1,0 +1,5 @@
+nose
+opencv-python
+numpy
+argparse
+logging
