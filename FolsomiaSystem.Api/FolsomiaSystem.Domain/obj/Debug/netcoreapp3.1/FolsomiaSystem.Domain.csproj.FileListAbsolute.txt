@@ -1,8 +1,0 @@
-C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Domain\bin\Debug\netcoreapp3.1\FolsomiaSystem.Domain.deps.json
-C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Domain\bin\Debug\netcoreapp3.1\FolsomiaSystem.Domain.dll
-C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Domain\bin\Debug\netcoreapp3.1\FolsomiaSystem.Domain.pdb
-C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Domain\obj\Debug\netcoreapp3.1\FolsomiaSystem.Domain.AssemblyInfoInputs.cache
-C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Domain\obj\Debug\netcoreapp3.1\FolsomiaSystem.Domain.AssemblyInfo.cs
-C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Domain\obj\Debug\netcoreapp3.1\FolsomiaSystem.Domain.dll
-C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Domain\obj\Debug\netcoreapp3.1\FolsomiaSystem.Domain.pdb
-C:\Users\cs319260\Desktop\TCC\FolsomiaSystem.Api\FolsomiaSystem.Domain\obj\Debug\netcoreapp3.1\FolsomiaSystem.Domain.csprojAssemblyReference.cache
