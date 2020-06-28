@@ -20,12 +20,12 @@ def log_exist (filename):
 def log_error(error, msg):
     now = datetime.now()
     with open("folsomiacount.log",log_exist("folsomiacount.log")) as f:
-        f.write(str(now)+" ERROR "+str(msg['method'])+" "+str(error))
+        f.write(str(now)+" ERROR "+str(msg['method'])+" "+str(error)+"\n")
 
 def log_debug(debug, msg):
     now = datetime.now()
     with open("folsomiacount.log",log_exist("folsomiacount.log")) as f:
-        f.write(str(now)+" DEBUG "+str(msg['count_res'])+" "+str(debug))
+        f.write(str(now)+" DEBUG "+str(msg['count_res'])+" "+str(debug)+"\n")
 
 def save_res_image(img, dirResImg):
     try:

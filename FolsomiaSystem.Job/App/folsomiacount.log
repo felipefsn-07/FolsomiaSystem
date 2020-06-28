@@ -1,2 +1,0 @@
-2020-06-27 22:22:09.146247 ERROR folsomia_count OpenCV(4.2.0) C:\projects\opencv-python\opencv\modules\imgproc\src\color.cpp:182: error: (-215:Assertion failed) !_src.empty() in function 'cv::cvtColor'
-2020-06-27 22:22:23.728340 DEBUG 189 2020-06-27 22:22:32.991716 DEBUG 189 
