@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.5" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="5.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FolsomiaSystem.Application\FolsomiaSystem.Application.csproj" />
+    <ProjectReference Include="..\FolsomiaSystem.Domain\FolsomiaSystem.Domain.csproj" />
+    <ProjectReference Include="..\FolsomiaSystem.Infra.Caching\FolsomiaSystem.Infra.Caching.csproj" />
+    <ProjectReference Include="..\FolsomiaSystem.Infra.Data\FolsomiaSystem.Infra.Data.csproj" />
+    <ProjectReference Include="..\FolsomiaSystem.Infra.ES.CredentialSafe\FolsomiaSystem.Infra.ES.CredentialSafe.csproj" />
+    <ProjectReference Include="..\FolsomiaSystem.Infra.ES.Logging\FolsomiaSystem.Infra.ES.Logging.csproj" />
+    <ProjectReference Include="..\FolsomiaSystem.Infra.ExternalServices.FolsomiaCountJob\FolsomiaSystem.Infra.ES.FolsomiaCountJob.csproj" />
+  </ItemGroup>
+
+</Project>

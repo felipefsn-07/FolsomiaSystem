@@ -5,10 +5,10 @@ import sys
 import os
 from datetime import datetime
 
+file_log = "C:/Users/cs319260/Desktop/TCC/FolsomiaSystem/FolsomiaSystem.Job/App/Log/folsomiacount.log"
 
 def log_exist (filename):
-    filename = "folsomiacount.log"
-    append_write = 'w'
+    filename =file_log
     if os.path.exists(filename):
         append_write = 'a' # append if already exists
     else:
@@ -19,12 +19,12 @@ def log_exist (filename):
 
 def log_error(error, msg):
     now = datetime.now()
-    with open("folsomiacount.log",log_exist("folsomiacount.log")) as f:
+    with open(file_log,log_exist(file_log)) as f:
         f.write(str(now)+" ERROR "+str(msg['method'])+" "+str(error)+"\n")
 
 def log_debug(debug, msg):
     now = datetime.now()
-    with open("folsomiacount.log",log_exist("folsomiacount.log")) as f:
+    with open(file_log,log_exist(file_log)) as f:
         f.write(str(now)+" DEBUG "+str(msg['count_res'])+" "+str(debug)+"\n")
 
 def save_res_image(img, dirResImg):

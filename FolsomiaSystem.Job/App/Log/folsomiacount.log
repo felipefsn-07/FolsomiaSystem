@@ -1,0 +1,9 @@
+2020-06-28 16:15:55.197273 DEBUG 102 
+2020-06-28 16:16:01.797979 DEBUG 102 
+2020-06-28 16:16:07.389360 ERROR save_res_image OpenCV(4.2.0) C:\projects\opencv-python\opencv\modules\imgcodecs\src\loadsave.cpp:661: error: (-2:Unspecified error) could not find a writer for the specified extension in function 'cv::imwrite_'
+
+2020-06-28 16:16:51.770377 DEBUG 103 
+2020-06-28 16:17:15.764502 DEBUG 102 
+2020-06-28 16:17:22.798176 DEBUG 1981 
+2020-06-28 18:21:34.592340 DEBUG 1981 
+2020-06-28 18:44:59.113977 DEBUG 1981 
