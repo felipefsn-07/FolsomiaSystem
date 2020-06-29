@@ -9,13 +9,21 @@
             Base controller.
             </summary>
         </member>
-        <member name="M:FolsomiaSystem.Api.V1.Controllers.AdminUserController.GetList(Microsoft.AspNetCore.Mvc.ApiVersion,FolsomiaSystem.Application.DTOs.AdminUserInputs)">
+        <member name="M:FolsomiaSystem.Api.V1.Controllers.AdminUserController.Login(Microsoft.AspNetCore.Mvc.ApiVersion,FolsomiaSystem.Application.DTOs.AdminUserInputs)">
             <summary>
             Login
             </summary>
             <param name="apiVersion">API version. It`s automatically populated if usign URL versioning.</param>
             <param name="user">User</param>
             <returns>login</returns>
+        </member>
+        <member name="M:FolsomiaSystem.Api.V1.Controllers.AdminUserController.AlterAdminPassword(Microsoft.AspNetCore.Mvc.ApiVersion,FolsomiaSystem.Application.DTOs.AlterAdminUserInputs)">
+            <summary>
+            Alter password
+            </summary>
+            <param name="apiVersion">API version. It`s automatically populated if usign URL versioning.</param>
+            <param name="alterUser">alterUser</param>
+            <returns>Alter password</returns>
         </member>
         <member name="M:FolsomiaSystem.Api.V1.Controllers.AuditLogController.GetList(Microsoft.AspNetCore.Mvc.ApiVersion,FolsomiaSystem.Application.DTOs.PagedListIntput)">
             <summary>

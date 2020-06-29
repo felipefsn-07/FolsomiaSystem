@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FolsomiaSystem.Application.Validators
 {
-    class BaseValidator
+   public class BaseValidator
     {
         public string MsgErrorValidator(ValidationResult results)
         {

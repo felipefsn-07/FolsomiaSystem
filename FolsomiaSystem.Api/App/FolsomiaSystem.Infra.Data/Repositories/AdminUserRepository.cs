@@ -8,6 +8,8 @@ namespace FolsomiaSystem.Infra.Data.Repositories
     {
         public AdminUserRepository(DefaultContext context) : base(context)
         {
+
+       
         }
 
     }

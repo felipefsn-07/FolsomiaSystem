@@ -32,13 +32,34 @@ namespace FolsomiaSystem.Api.V1.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.InternalServerError)]
         [AllowAnonymous]
-        public virtual async Task<IActionResult> GetList(ApiVersion apiVersion, [FromBody] AdminUserInputs user)
+        public virtual async Task<IActionResult> Login(ApiVersion apiVersion, [FromBody] AdminUserInputs user)
         {
             var result = await _credentialSafeExternalService.Login(user);
             //Response.Headers.Add("X-Total-Count", "1");
             if (result?.AuditLog != null) return BadRequest(result.AuditLog);
             return Ok(result);
         }
+
+
+        /// <summary>
+        /// Alter password
+        /// </summary>
+        /// <param name="apiVersion">API version. It`s automatically populated if usign URL versioning.</param>
+        /// <param name="alterUser">alterUser</param>
+        /// <returns>Alter password</returns>
+        [HttpPost("AlterPassword")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.InternalServerError)]
+        [Authorize]
+        public virtual async Task<IActionResult> AlterAdminPassword(ApiVersion apiVersion, [FromBody] AlterAdminUserInputs alterUser)
+        {
+            var result = await _credentialSafeExternalService.AlterPassword(alterUser);
+            //Response.Headers.Add("X-Total-Count", "1");
+            if (result?.AuditLog != null) return BadRequest(result.AuditLog);
+            return Ok(result);
+        }
+
+
 
     }
 }

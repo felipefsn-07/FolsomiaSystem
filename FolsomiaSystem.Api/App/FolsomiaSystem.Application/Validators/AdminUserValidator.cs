@@ -1,9 +1,10 @@
 using FluentValidation;
+using FolsomiaSystem.Application.DTOs;
 using FolsomiaSystem.Domain.Entities;
 
-namespace FolsomiaSystem.Infra.ES.CredentialSafe.Validators
+namespace FolsomiaSystem.Application.Validators
 {
-    public class AdminUserValidator : AbstractValidator<AdminUser>
+    public class AdminUserValidator : AbstractValidator<AdminUserInputs>
     {
         public AdminUserValidator()
         {

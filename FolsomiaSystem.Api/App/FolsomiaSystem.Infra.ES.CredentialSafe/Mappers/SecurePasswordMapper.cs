@@ -10,7 +10,7 @@ namespace FolsomiaSystem.Infra.ES.CredentialSafe.Mappers
         {
             return new AdminUser
             {
-                UserName = item.Username,
+                UserName = item.UserName,
                 Password = item.Password,
             };
         }

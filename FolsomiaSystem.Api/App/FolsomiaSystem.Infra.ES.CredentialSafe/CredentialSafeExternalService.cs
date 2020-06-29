@@ -1,18 +1,16 @@
-﻿using FolsomiaSystem.Application.DTOs;
+﻿using AutoMapper;
+using FolsomiaSystem.Application.DTOs;
 using FolsomiaSystem.Application.Exceptions;
 using FolsomiaSystem.Application.Interfaces.ExternalServices;
 using FolsomiaSystem.Application.Interfaces.Repositories;
+using FolsomiaSystem.Application.Validators;
+using FolsomiaSystem.Domain;
 using FolsomiaSystem.Domain.Entities;
 using FolsomiaSystem.Domain.Enums;
-using FolsomiaSystem.Infra.ES.CredentialSafe.Mappers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Net;
-using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
@@ -40,7 +38,6 @@ namespace FolsomiaSystem.Infra.ES.CredentialSafe
         const string CONFIG_SECTION_NAME = "SecurePassword";
         const string CONFIG_DEFAULT_CACHE_EXPIRATION_IN_MINUTES = "DefaultCacheExpirationInMinutes";
         const string CONFIG_TOKEN_SECRET = "TokenSecret";
-        private readonly IAdminUserRepository _adminUserRepository;
 
 
         #endregion
@@ -48,15 +45,38 @@ namespace FolsomiaSystem.Infra.ES.CredentialSafe
         #region Variables
 
         private readonly IConfiguration _configuration;
+        private readonly IAdminUserRepository _adminUserRepository;
+        private readonly IMapper _mapper;
+        private readonly IAuditLogExternalService _auditLogExternalService;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly CredentialSafeConfig _credential;
 
         #endregion
 
         #region Constructors
 
-        public CredentialSafeExternalService(IConfiguration configuration, IAdminUserRepository adminUserRepository)
+        public CredentialSafeExternalService(IConfiguration configuration, 
+                                             IAdminUserRepository adminUserRepository,
+                                            IAuditLogExternalService auditLogExternalService,
+                                            IMapper mapper,
+                                            IUnitOfWork unitOfWork
+
+            )
         {
             _configuration = configuration;
             _adminUserRepository = adminUserRepository;
+            _mapper = mapper;
+            _unitOfWork = unitOfWork;
+            _auditLogExternalService = auditLogExternalService;
+            _credential = new CredentialSafeConfig()
+            {
+                AuditLog = new AuditLog
+                {
+                   DateLog = DateTime.UtcNow,
+                   StatusLog = StatusLog.success
+                }
+
+            };
         }
 
         #endregion
@@ -67,6 +87,12 @@ namespace FolsomiaSystem.Infra.ES.CredentialSafe
         {
             
             return Task.FromResult(Authenticate(user));
+        }
+
+        public Task<CredentialSafeConfig> AlterPassword(AlterAdminUserInputs alterAdminUserInputs)
+        {
+
+            return Task.FromResult(AlterPasswordReturnCredential(alterAdminUserInputs));
         }
 
         #endregion
@@ -97,34 +123,31 @@ namespace FolsomiaSystem.Infra.ES.CredentialSafe
         {
             var _config = _configuration.GetSection(CONFIG_SECTION_NAME).Get<SecurePasswordConfig>();
             Validate(_config);
-
-            CredentialSafeConfig credential = new CredentialSafeConfig();
-
+            if (!ValidateInputsAdminUser(adminUser)) return _credential;
             var logar =  _adminUserRepository.GetFirstAsync();
-            if (logar.Result != null)
-            {
-                if (logar.Result.UserName == adminUser.Username && logar.Result.Password == MD5Hash(adminUser.Password))
-                {
-                    var token = GenerateToken(_config.TokenSecret, _config.DefaultCacheExpirationInMinutes);
-                    adminUser.Password = "";
-                    credential.AuditLog = null;
-                    credential.DefaultCacheExpirationInMinutes = _config.DefaultCacheExpirationInMinutes;
-                    credential.Token = token;
-                }
-                else
-                {
-                    credential.AuditLog = new AuditLog
-                    {
-                        DateLog = DateTime.UtcNow,
-                        MessageLog = "User or password incorrect",
-                        StatusLog = StatusLog.fail,
-                        OperationLog = OperationLog.Login
 
-                    };
-                }
+           
+            if (logar.Result != null && logar.Result.UserName == adminUser.UserName && logar.Result.Password == MD5Hash(adminUser.Password))
+            {
+                var token = GenerateToken(_config.TokenSecret, _config.DefaultCacheExpirationInMinutes);
+                adminUser.Password = "";
+                _credential.AuditLog = null;
+                _credential.DefaultCacheExpirationInMinutes = _config.DefaultCacheExpirationInMinutes;
+                _credential.Token = token;
+            }
+            else
+            {
+                _credential.AuditLog = new AuditLog
+                {
+                    DateLog = DateTime.UtcNow,
+                    MessageLog = "User or password incorrect!",
+                    StatusLog = StatusLog.fail,
+                    OperationLog = OperationLog.Login
+
+                };
 
             }
-            return credential;
+            return _credential;
         }
 
         private string MD5Hash(string text)
@@ -148,6 +171,49 @@ namespace FolsomiaSystem.Infra.ES.CredentialSafe
             return strBuilder.ToString();
         }
 
+        private bool ValidateInputsAdminUser(AdminUserInputs adminUser)
+        {
+
+            var validator = new AdminUserValidator();
+            BaseValidator baseValidator = new BaseValidator();
+            var validRes = validator.Validate(adminUser);
+
+            if (!validator.Validate(adminUser).IsValid)
+            {
+               _credential.AuditLog = new AuditLog
+                {
+                    DateLog = DateTime.UtcNow,
+                    MessageLog = baseValidator.MsgErrorValidator(validRes),
+                    StatusLog = StatusLog.fail,
+                    OperationLog = OperationLog.Login
+
+                };
+                return false;
+            }
+            return true;
+        }
+
+        private bool ValidateInputsAlterPassword(AlterAdminUserInputs pass)
+        {
+
+            var validator = new AlterPasswordValidator();
+            BaseValidator baseValidator = new BaseValidator();
+            var validRes = validator.Validate(pass);
+
+            if (!validator.Validate(pass).IsValid)
+            {
+                _credential.AuditLog = new AuditLog
+                {
+                    DateLog = DateTime.UtcNow,
+                    MessageLog = baseValidator.MsgErrorValidator(validRes),
+                    StatusLog = StatusLog.fail,
+                    OperationLog = OperationLog.Login
+
+                };
+                return false;
+            }
+            return true;
+        }
 
         private void Validate(SecurePasswordConfig config)
         {
@@ -159,9 +225,27 @@ namespace FolsomiaSystem.Infra.ES.CredentialSafe
                 throw new ConfigurationMissingException($"The \"{CONFIG_TOKEN_SECRET}\" not found in the section \"{CONFIG_SECTION_NAME}\" of appsettings.json file");
         }
 
-        public Task<CredentialSafeConfig> AlterPassword(AlterAdminUserInputs alterAdminUserInputs)
+        private CredentialSafeConfig AlterPasswordReturnCredential(AlterAdminUserInputs alterAdminUserInputs)
         {
-            throw new NotImplementedException();
+            var _config = _configuration.GetSection(CONFIG_SECTION_NAME).Get<SecurePasswordConfig>();
+            Validate(_config);
+            _credential.AuditLog.OperationLog = OperationLog.ChangePassword;
+            if (ValidateInputsAlterPassword(alterAdminUserInputs))
+            {
+                var logar = _adminUserRepository.GetFirstAsync();
+                if (logar.Result != null)
+                {
+                    logar.Result.Password = MD5Hash(alterAdminUserInputs.NewPassword);
+                    _adminUserRepository.Update(logar.Result);
+                     //_auditLogExternalService.AddNewLogAuditAsync(_credential.AuditLog);
+                     _unitOfWork.CommitAsync();
+                    var token = GenerateToken(_config.TokenSecret, _config.DefaultCacheExpirationInMinutes);
+                    _credential.Token = token;
+                }
+
+            }
+
+            return _credential;
         }
 
 
