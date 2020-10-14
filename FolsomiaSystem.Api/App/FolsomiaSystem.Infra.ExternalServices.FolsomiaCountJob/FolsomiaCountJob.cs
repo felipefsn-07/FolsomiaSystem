@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 using FolsomiaSystem.Application.Interfaces.ExternalServices;
 using FolsomiaSystem.Domain.Entities;
 using FolsomiaSystem.Domain.Enums;
+using Microsoft.VisualBasic.FileIO;
 using Newtonsoft.Json.Linq;
 
 namespace FolsomiaSystem.Infra.ExternalServices.FolsomiaCountJob
@@ -67,7 +69,7 @@ namespace FolsomiaSystem.Infra.ExternalServices.FolsomiaCountJob
                           folsomiaCount.ImageFolsomiaURL + " "+
                           ParameterBackground(folsomiaCount)+ 
                           " -ir " + 
-                          folsomiaCount.ImageFolsomiaOutlinedURL;
+                          folsomiaCount.ImageFolsomiaURL;
 
             var process = new Process
             {
@@ -96,6 +98,50 @@ namespace FolsomiaSystem.Infra.ExternalServices.FolsomiaCountJob
 
         }
 
+        private FolsomiaCount ResultImage64(FolsomiaCount folsomiaCount)
+        {
+
+            string base64 = ConvertToBase64(DeleteFileSaveMemory(folsomiaCount.ImageFolsomiaURL));
+            folsomiaCount.FileResult.FileAsBase64 = "data:image/png;base64,"+ base64;
+
+            return folsomiaCount;
+
+        }
+
+
+        private  string ConvertToBase64( Stream stream)
+        {
+            byte[] bytes;
+            using (var memoryStream = new MemoryStream())
+            {
+                stream.CopyTo(memoryStream);
+                bytes = memoryStream.ToArray();
+            }
+
+            string base64 = Convert.ToBase64String(bytes);
+            return base64;
+        }
+
+        private Stream DeleteFileSaveMemory(string path)
+        {
+            Stream retVal = null;
+
+            if (File.Exists(path))
+
+            {
+
+                byte[] fileData = File.ReadAllBytes(path);
+
+                retVal = new MemoryStream(fileData);
+
+                File.Delete(path);
+
+            }
+
+            return retVal;
+        }
+
+
         public Task<FolsomiaCount> FolsomiaCountJobPython(FolsomiaCount folsomiaCount, string localPythonFolsomiaCount)
         {
             var taskFolsomiaCount = new TaskCompletionSource<FolsomiaCount>();
@@ -108,7 +154,7 @@ namespace FolsomiaSystem.Infra.ExternalServices.FolsomiaCountJob
                 folsomiaCount.TotalCountFolsomia = ResultadoContagem(res);
                 folsomiaCount.AuditLog.StatusLog = ResultadoStatus(res);
                 folsomiaCount.AuditLog.MessageLog = ResultadoError(res);
-
+                folsomiaCount = ResultImage64(folsomiaCount);
                 taskFolsomiaCount.SetResult(folsomiaCount);
                 return taskFolsomiaCount.Task;
 

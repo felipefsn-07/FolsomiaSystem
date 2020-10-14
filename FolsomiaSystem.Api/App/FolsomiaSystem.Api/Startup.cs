@@ -25,6 +25,9 @@ using Microsoft.Extensions.Hosting;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.AspNetCore.Http;
 
 namespace FolsomiaSystem.Api
 {
@@ -85,6 +88,7 @@ namespace FolsomiaSystem.Api
                 {
                     options.Level = CompressionLevel.Fastest;
                 });
+
 
             services.AddApiVersioning(
                 options =>

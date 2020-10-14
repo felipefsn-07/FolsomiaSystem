@@ -20,8 +20,6 @@ namespace FolsomiaSystem.Application
           .ForMember(p => p.IdTest, p => p.MapFrom(m => new FolsomiaCountInput
           {
               IdTest = m.IdTest,
-              ImageFolsomiaOutlinedURL = m.ImageFolsomiaOutlinedURL,
-              ImageFolsomiaURL = m.ImageFolsomiaURL,
               BackgroundImage = m.BackgroundImage
 
           }));
@@ -48,8 +46,6 @@ namespace FolsomiaSystem.Application
             .ForMember(p => p.IdTest, p => p.MapFrom(m => new FolsomiaCount
             {
                 IdTest = m.IdTest,
-                ImageFolsomiaOutlinedURL = m.ImageFolsomiaOutlinedURL,
-                ImageFolsomiaURL = m.ImageFolsomiaURL,
                 BackgroundImage = m.BackgroundImage
 
             }));

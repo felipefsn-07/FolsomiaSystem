@@ -1,0 +1,168 @@
+  <div class="col-xl-12">
+
+    <div class="card" id="basic" *ngIf="ini">
+
+      <div class="card-header">
+        
+        <h5 class="card-title">Informação básicas </h5>
+        <div class="card-header-right">
+        </div>
+
+      </div> 
+
+      
+      <form action="javascript:" class="was-validated" [formGroup]="iniForm">
+
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-10">
+              <div class="form-group row">
+                <label for="input" class="col-sm-3 col-form-label">Titulo do teste</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" formControlName="tituloTeste" placeholder="Titulo do teste" required>
+                  <div class="invalid-feedback">Titulo é obrigatório.</div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-3 col-form-label">Substância</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" formControlName="substancia" placeholder="Substância" required>
+                  <div class="invalid-feedback">Substância é obrigatório.</div>
+
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="description" class="col-sm-3 col-form-label">Descrição</label>
+                <div class="col-sm-9">
+                  <textarea class="form-control" formControlName="description" rows="3" placeholder="Descrição"></textarea>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card-footer bg-dark">
+        <div class="col text-right">
+
+        <button type="button" class="btn btn-info" (click)="startTest()">Iniciar o teste</button>
+        </div>
+      </div>
+    </form>
+    </div>
+
+
+    <div class="card" id ="test" *ngIf="!ini">
+      <div class="card-header">
+
+        <div class="row">
+          <div class="col">
+          <h5><label id="titulo" >{{ iniForm.value.tituloTeste }}</label></h5>
+          </div>
+          <div class="col text-right">
+            <button type="button" class="btn btn-success btn-sm" (click)="addFolsomiaTest.show()"><i class="feather icon-plus"></i>Adicionar</button>
+          </div>
+        </div>
+
+      </div>
+      <div class="card-body">
+        <div class="card-columns">
+          <app-card [hidHeader]="false" cardClass="support-bar overflow-hidden" blockClass="p-0" [isCardFooter]="true" footerClass="bg-info text-white">
+            <div class="card-body">
+            </div>
+            <div class="app-card-footer">
+              <div class="row text-center">
+                <div class="col">
+                  <h6 class="m-0 text-white">-</h6>
+                  <span>Concentração</span>
+                </div>
+                <div class="col">
+                  <h6 class="m-0 text-white">-</h6>
+                  <span>Total</span>
+                </div>
+              </div>
+            </div>
+          </app-card> 
+        </div>
+
+      </div>
+
+      
+      <div class="card-footer bg-dark">
+        <div class="row text-center">
+
+          <div class="col">
+            <h4 class="m-0 text-white">{{ iniForm.value.substancia }}</h4>
+          </div>
+          <div class="col">
+            <h6 class="m-0 text-white">0</h6>
+            <span  class="m-0 text-white">Média</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  
+</div>
+
+
+<app-ui-modal #addFolsomiaTest [dialogClass]="'modal-lg'" >
+
+  <div class="app-modal-header">
+    <h5 class="modal-title">Nova Concentração </h5>
+    <button type="button" class="close basic-close" data-dismiss="modal" aria-label="Close" (click)="addFolsomiaTest.hide()"><span aria-hidden="true">&times;</span></button>
+  </div>
+
+  
+  <div class="app-modal-body">
+    <div class="col-xl-12">
+      <div class="col-md-12 col-xl-12">
+        <form action="javascript:">
+          <input [hidden]="true" type="text" id="imagemName">
+          <input [hidden]="true" type="text" id="total">
+      <div class="form-group row">
+        <label for="valorConcetracao" class="col-sm-3 col-form-label">Valor da concentração</label>
+        <div class="col-sm-9">
+          <input type="number" step="0.001" class="form-control" id="substancia" placeholder="Substância">
+        </div>
+      </div>
+    </form>
+    </div>
+    <div class="col-md-12 col-xl-12">
+      <div class="marge-card mb-6">
+        <app-card [hidHeader]="true" cardClass="mb-0" blockClass="p-0" [isCardFooter]="true" footerClass="bg-info text-white">
+          <div class="app-card-body">
+            <image-editor
+            imageFormat=""
+            [aspectRatio]="1"
+            [viewMode]="1"
+            [resizeToWidth]="600"
+            ></image-editor>
+        </div>
+          <div class="app-card-footer">
+            <div class="row text-center">
+              <div class="col">
+                <h6 class="m-0 text-white">-</h6>
+                <span>Concentração</span>
+              </div>
+              <div class="col">
+                <h6 class="m-0 text-white">-</h6>
+                <span>Total</span>
+              </div>
+            </div>
+          </div>
+        </app-card>
+      </div>
+    </div>
+
+    </div>
+  </div>
+
+  <div class="app-modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="addFolsomiaTest.hide()">Cancelar</button>
+
+    <button type="button" class="btn btn-info">Finalizar</button>
+  </div>  
+</app-ui-modal>
+

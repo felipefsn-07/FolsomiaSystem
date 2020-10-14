@@ -13,9 +13,6 @@ namespace FolsomiaSystem.Application.Validators
         {
             
             RuleFor(p => p.IdTest).NotEmpty().WithMessage("Required field");
-            RuleFor(p => p.ImageFolsomiaOutlinedURL)
-                .NotEmpty().WithMessage("Required field")
-                .Matches(@"^.*\.(jpg|jpeg|png|JPG|JPEG|PNG)$").WithMessage("ImageFolsomiaOutlinedURL is invalid");
 
             RuleFor(p => p.ImageFolsomiaURL)
                   .NotEmpty().WithMessage("Required field")

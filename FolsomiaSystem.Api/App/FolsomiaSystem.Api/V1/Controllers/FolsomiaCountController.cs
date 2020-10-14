@@ -10,6 +10,7 @@ using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using System.Net.Http.Headers;
 
 namespace FolsomiaSystem.Api.V1.Controllers
 {
@@ -44,15 +45,12 @@ namespace FolsomiaSystem.Api.V1.Controllers
         {
 
                 if (model == null || !ModelState.IsValid) return BadRequest();
-                var imageOut = string.Format(@"{0}.jpg", Guid.NewGuid());
-                model.ImageFolsomiaOutlinedURL = Path.Combine(_fileShared, imageOut);
-                model.ImageFolsomiaURL = Path.Combine(_fileShared, model.ImageFolsomiaURL);
-                model.ImageFolsomiaOutlinedURL = Path.Combine(_fileShared, imageOut);
-                var item = await _folsomiaCountUseCase.CountFolsomiaCandidaAsync(model, _folsomiaJob);
-                if (item?.TotalCountFolsomia == 0) return BadRequest(item.AuditLog.MessageLog);
-                var urlString = $"{HttpContext.Request.Path}/{item.ImageFolsomiaOutlinedURL}";
-                return Created(urlString, item);
 
+
+                var item = await _folsomiaCountUseCase.CountFolsomiaCandidaAsync(model, _folsomiaJob, _fileShared);
+                if (item?.TotalCountFolsomia == 0) return BadRequest(item.AuditLog.MessageLog);
+                var urlString = $"{HttpContext.Request.Path}/{item.IdTest}";
+                return Created(urlString, item);
         }
     }
 }

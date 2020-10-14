@@ -1,0 +1,8 @@
+export const environment = {
+  folsomiaApi: "https://localhost:44344",
+  production: true,
+  folsomiaSetup: "/api/v1/folsomiasetup",
+  folsomiaCount: "/api/v1/folsomiacount"
+
+
+};

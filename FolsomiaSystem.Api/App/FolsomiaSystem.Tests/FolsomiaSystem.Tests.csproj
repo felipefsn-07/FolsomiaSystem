@@ -22,6 +22,7 @@
     <ProjectReference Include="..\FolsomiaSystem.Domain\FolsomiaSystem.Domain.csproj" />
     <ProjectReference Include="..\FolsomiaSystem.Infra.Caching\FolsomiaSystem.Infra.Caching.csproj" />
     <ProjectReference Include="..\FolsomiaSystem.Infra.Data\FolsomiaSystem.Infra.Data.csproj" />
+    <ProjectReference Include="..\FolsomiaSystem.Infra.ES.Logging\FolsomiaSystem.Infra.ES.Logging.csproj" />
     <ProjectReference Include="..\FolsomiaSystem.Infra.ExternalServices.FolsomiaCountJob\FolsomiaSystem.Infra.ES.FolsomiaCountJob.csproj" />
   </ItemGroup>
 

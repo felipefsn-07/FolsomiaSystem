@@ -1,0 +1,70 @@
+<div id="edit"  [hidden]="!edit">
+<div class="ngx-photo-editor-icons-container-nav">
+  <i (click)="trash()" [hidden] = "showDragDrop" class="fas fa-trash-alt"></i>
+  <i [hidden] = "showDragDrop" (click)="export()" class="fas fa-check"></i>
+
+  </div>
+ <div [style.backgroundColor]="darkTheme?'#36393F':'#D8D8D8'" style="padding-bottom: 0">
+    <div [style.height]="canvasHeight+'px'" class="ngx-photo-editor-img-container">
+      <div
+      class="loader"
+      (dragover)="dragover($event)"
+      (drop)="drop($event)"
+      (change)="fileChangeEvent($event)"
+      [hidden] = "!showDragDrop"
+      
+      >
+      <p>
+        Arreste e solte ou 
+        <label class="browse">Diretório...
+          <input
+            id="file"
+      
+            class="sr-only"
+            type="file"
+            accept="image/*"
+          >
+        </label>
+      </p>
+      </div>
+      <img #image [hidden] ="showDragDrop" (load)="onImageLoad(image)"  [src]="url" crossorigin id="ngx-photo-editor-image">
+    </div>
+  </div>
+
+  <div class="ngx-photo-editor-icons-container">
+    <i [hidden] = "showDragDrop" (click)="crop()" class="fas fa-crop-alt"></i>
+    <i [hidden] = "showDragDrop" (click)="cropRound()" class="fas fa-circle-notch"></i>
+    <i [hidden] = "showDragDrop" (click)="zoomIn()" class="fas fa-search-plus"></i>
+    <i [hidden] = "showDragDrop" (click)="zoomOut()" class="fas fa-search-minus"></i>
+    <i [hidden] = "showDragDrop"(click)="rotateLeft()" class="fas fa-undo-alt"></i>
+    <i [hidden] = "showDragDrop" (click)="rotateRight()" class="fas fa-redo-alt"></i>
+    <i [hidden] = "showDragDrop" (click)="move()" class="fas fa-arrows-alt"></i>
+    <i [hidden] = "showDragDrop" (click)="reset()"  class="fas fa-sync-alt"></i>
+  </div>
+ </div>
+
+<div id="result" [hidden]="!result">
+
+  <div class="ngx-photo-editor-icons-container-nav">
+    <i (click)="trash()" [hidden] = "showDragDrop" class="fas fa-trash-alt"></i>
+    <i (click)="trash()" [hidden] = "showDragDrop" class="fas fa-braille"></i>
+
+    </div>
+  
+   <div [style.backgroundColor]="darkTheme?'#36393F':'#D8D8D8'" style="padding-bottom: 0">
+      <div [style.height]="canvasHeight+'px'" class="ngx-photo-editor-img-container">
+        <img [src]="outputImage" crossorigin id="ngx-photo-editor-image">
+      </div>
+    </div>
+  
+    <div class="ngx-photo-editor-icons-container">
+      <i   class="fas fa-circle" ngbTooltip="Fundo claro"></i>
+      <i   class="fas fa-adjust" ngbTooltip="Fundo padrão"></i>
+      <i   class="far fa-circle" ngbTooltip="Fundo escuro"></i>
+    </div>
+
+
+</div>
+
+
+

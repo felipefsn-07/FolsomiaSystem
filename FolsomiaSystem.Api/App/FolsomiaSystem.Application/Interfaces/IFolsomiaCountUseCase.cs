@@ -7,7 +7,6 @@ namespace FolsomiaSystem.Application.Interfaces
 {
     public interface IFolsomiaCountUseCase : IDisposable
     {
-        Task<FolsomiaCount> CountFolsomiaCandidaAsync(FolsomiaCountInput folsomiaCountInput, string folsomiaJob);
-
+        Task<FolsomiaCount> CountFolsomiaCandidaAsync(FolsomiaCountInput folsomiaCountInput, string folsomiaJob, string path);
     }
 }

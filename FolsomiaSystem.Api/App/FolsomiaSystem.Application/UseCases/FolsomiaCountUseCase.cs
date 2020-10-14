@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using FolsomiaSystem.Application.Validators;
 
 using FolsomiaSystem.Domain.Enums;
+using System.IO;
 
 namespace FolsomiaSystem.Application.UseCases
 {
@@ -34,11 +35,27 @@ namespace FolsomiaSystem.Application.UseCases
             _unitOfWork = unitOfWork;
         }
 
-        public  Task<FolsomiaCount> CountFolsomiaCandidaAsync(FolsomiaCountInput folsomiaCountInput, string folsomiaJob)
+        public  Task<FolsomiaCount> CountFolsomiaCandidaAsync(FolsomiaCountInput folsomiaCountInput, string folsomiaJob, string fileShared)
         {
                 var folsomiacount = _mapper.Map<FolsomiaCount>(folsomiaCountInput);
-                folsomiacount.AuditLog.OperationLog = OperationLog.CountFolsomia;
+                var imageOut = string.Format(@"{0}.jpg", Guid.NewGuid());
                 var taskFolsomiaCount = new TaskCompletionSource<FolsomiaCount>();
+
+                folsomiacount.ImageFolsomiaURL = Path.Combine(fileShared, imageOut);
+                folsomiacount.FileResult = new FileToUpload()
+                {
+                   FileAsBase64 = folsomiaCountInput.FileAsBase64
+                };
+                
+                folsomiacount =  this.UploadImage(folsomiacount);
+
+                if (folsomiacount.AuditLog.StatusLog == StatusLog.fail)
+                {
+                    taskFolsomiaCount.SetResult(folsomiacount);
+                    return taskFolsomiaCount.Task;
+                }
+
+                folsomiacount.AuditLog.OperationLog = OperationLog.CountFolsomia;
                 var validator = new FolsomiaCountValidator();
                 BaseValidator baseValidator = new BaseValidator();
                 var validRes = validator.Validate(folsomiacount);
@@ -50,16 +67,57 @@ namespace FolsomiaSystem.Application.UseCases
                     _auditLogExternalService.AddNewLogAuditAsync(folsomiacount.AuditLog);
                     _unitOfWork.CommitAsync();
                     return taskFolsomiaCount.Task;
-            }
-            else
-            {
-                var res = _folsomiaCountJob.FolsomiaCountJobPython(folsomiacount, folsomiaJob);
-                _auditLogExternalService.AddNewLogAuditAsync(folsomiacount.AuditLog);
-                _unitOfWork.CommitAsync();
-                return res;
-            }
+                }
+                else
+                {
+                    var res = _folsomiaCountJob.FolsomiaCountJobPython(folsomiacount, folsomiaJob);
+                    
+                    
+                    _auditLogExternalService.AddNewLogAuditAsync(folsomiacount.AuditLog);
+                    _unitOfWork.CommitAsync();
+                    return res;
+                }
+           
         }
         
+
+        private FolsomiaCount UploadImage(FolsomiaCount folsomiaCount)
+        {
+            try
+            {
+
+                if (folsomiaCount.FileResult.FileAsBase64.Contains(","))
+                {
+                    folsomiaCount.FileResult.FileAsBase64 = folsomiaCount.FileResult.FileAsBase64.Substring(folsomiaCount.FileResult.FileAsBase64.IndexOf(",") + 1);
+                }
+
+                folsomiaCount.FileResult.FileAsByteArray = Convert.FromBase64String(folsomiaCount.FileResult.FileAsBase64);
+
+
+                using (var fs = new FileStream(folsomiaCount.ImageFolsomiaURL, FileMode.CreateNew))
+                {
+                    fs.Write(folsomiaCount.FileResult.FileAsByteArray, 0, folsomiaCount.FileResult.FileAsByteArray.Length);
+                }
+
+                folsomiaCount.AuditLog.MessageLog = "Upload file success.";
+                folsomiaCount.AuditLog.StatusLog = StatusLog.success;
+                folsomiaCount.AuditLog.OperationLog = OperationLog.UploadFile;
+
+                _auditLogExternalService.AddNewLogAuditAsync(folsomiaCount.AuditLog);
+                _unitOfWork.CommitAsync();
+
+                return folsomiaCount;
+            }catch(Exception e)
+            {
+                folsomiaCount.AuditLog.MessageLog = "Upload file failed.";
+                folsomiaCount.AuditLog.StatusLog = StatusLog.fail;
+                folsomiaCount.AuditLog.OperationLog = OperationLog.UploadFile;
+                _auditLogExternalService.AddNewLogAuditAsync(folsomiaCount.AuditLog);
+                _unitOfWork.CommitAsync();
+                return folsomiaCount;
+            }
+
+        } 
         public void Dispose()
         {
             GC.SuppressFinalize(this);
