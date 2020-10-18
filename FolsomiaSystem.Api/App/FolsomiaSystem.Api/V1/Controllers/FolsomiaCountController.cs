@@ -45,10 +45,9 @@ namespace FolsomiaSystem.Api.V1.Controllers
         {
 
                 if (model == null || !ModelState.IsValid) return BadRequest();
-
-
                 var item = await _folsomiaCountUseCase.CountFolsomiaCandidaAsync(model, _folsomiaJob, _fileShared);
                 if (item?.TotalCountFolsomia == 0) return BadRequest(item.AuditLog.MessageLog);
+
                 var urlString = $"{HttpContext.Request.Path}/{item.IdTest}";
                 return Created(urlString, item);
         }

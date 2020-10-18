@@ -1,70 +1,128 @@
-<div id="edit"  [hidden]="!edit">
-<div class="ngx-photo-editor-icons-container-nav">
-  <i (click)="trash()" [hidden] = "showDragDrop" class="fas fa-trash-alt"></i>
-  <i [hidden] = "showDragDrop" (click)="export()" class="fas fa-check"></i>
-
-  </div>
- <div [style.backgroundColor]="darkTheme?'#36393F':'#D8D8D8'" style="padding-bottom: 0">
-    <div [style.height]="canvasHeight+'px'" class="ngx-photo-editor-img-container">
-      <div
-      class="loader"
-      (dragover)="dragover($event)"
-      (drop)="drop($event)"
-      (change)="fileChangeEvent($event)"
-      [hidden] = "!showDragDrop"
-      
-      >
-      <p>
-        Arreste e solte ou 
-        <label class="browse">Diretório...
-          <input
-            id="file"
-      
-            class="sr-only"
-            type="file"
-            accept="image/*"
-          >
-        </label>
-      </p>
-      </div>
-      <img #image [hidden] ="showDragDrop" (load)="onImageLoad(image)"  [src]="url" crossorigin id="ngx-photo-editor-image">
-    </div>
-  </div>
-
-  <div class="ngx-photo-editor-icons-container">
-    <i [hidden] = "showDragDrop" (click)="crop()" class="fas fa-crop-alt"></i>
-    <i [hidden] = "showDragDrop" (click)="cropRound()" class="fas fa-circle-notch"></i>
-    <i [hidden] = "showDragDrop" (click)="zoomIn()" class="fas fa-search-plus"></i>
-    <i [hidden] = "showDragDrop" (click)="zoomOut()" class="fas fa-search-minus"></i>
-    <i [hidden] = "showDragDrop"(click)="rotateLeft()" class="fas fa-undo-alt"></i>
-    <i [hidden] = "showDragDrop" (click)="rotateRight()" class="fas fa-redo-alt"></i>
-    <i [hidden] = "showDragDrop" (click)="move()" class="fas fa-arrows-alt"></i>
-    <i [hidden] = "showDragDrop" (click)="reset()"  class="fas fa-sync-alt"></i>
-  </div>
- </div>
-
-<div id="result" [hidden]="!result">
-
-  <div class="ngx-photo-editor-icons-container-nav">
-    <i (click)="trash()" [hidden] = "showDragDrop" class="fas fa-trash-alt"></i>
-    <i (click)="trash()" [hidden] = "showDragDrop" class="fas fa-braille"></i>
-
-    </div>
-  
-   <div [style.backgroundColor]="darkTheme?'#36393F':'#D8D8D8'" style="padding-bottom: 0">
-      <div [style.height]="canvasHeight+'px'" class="ngx-photo-editor-img-container">
-        <img [src]="outputImage" crossorigin id="ngx-photo-editor-image">
+<div class="col-xl-12">
+  <div class="col-md-12 col-xl-12">
+      <form action="javascript:">
+        <input [hidden]="true" type="text" id="imagemName">
+        <input [hidden]="true" type="text" id="total">
+    <div class="form-group row">
+      <label for="valorConcetracao" class="col-sm-3 col-form-label">Valor da concentração</label>
+      <div class="col-sm-9">
+        <input type="number" (change)="concentrationChanged($event.target.value)" step="0.001" class="form-control" id="substancia" placeholder="Substância">
       </div>
     </div>
-  
-    <div class="ngx-photo-editor-icons-container">
-      <i   class="fas fa-circle" ngbTooltip="Fundo claro"></i>
-      <i   class="fas fa-adjust" ngbTooltip="Fundo padrão"></i>
-      <i   class="far fa-circle" ngbTooltip="Fundo escuro"></i>
+  </form>
+  </div>
+  <div class="col-md-12 col-xl-12">
+    <div class="marge-card mb-6">
+  <app-card [hidHeader]="true" cardClass="mb-0" blockClass="p-0" [isCardFooter]="true" footerClass="bg-info text-white">
+    <div class="app-card-body">
+      <div id="edit"  [hidden]="!edit">
+      <div class="ngx-photo-editor-icons-container-nav bg-dark">
+        <i (click)="trash()" [hidden] = "showDragDrop" class="fas fa-trash-alt"></i>
+        <i [hidden] = "showDragDrop" (click)="export()" class="fas fa-check"></i>
+
+        </div>
+      <div [style.backgroundColor]="darkTheme?'#36393F':'#D8D8D8'" style="padding-bottom: 0">
+          <div [style.height]="canvasHeight+'px'" class="ngx-photo-editor-img-container">
+            <div
+            class="loader"
+            (dragover)="dragover($event)"
+            (drop)="drop($event)"
+            (change)="fileChangeEvent($event)"
+            [hidden] = "!showDragDrop"
+            
+            >
+            <p>
+              Arreste e solte ou 
+              <label class="browse">Diretório...
+                <input
+                  #myInput
+                  id="file"
+            
+                  class="sr-only"
+                  type="file"
+                  accept="image/*"
+                >
+              </label>
+            </p>
+            </div>
+            <img #image [hidden] ="showDragDrop" (load)="onImageLoad(image)"  [src]="url" crossorigin id="ngx-photo-editor-image">
+          </div>
+        </div>
+
+        <div class="ngx-photo-editor-icons-container bg-dark">
+          <i [hidden] = "showDragDrop" (click)="crop()" class="fas fa-crop-alt"></i>
+          <i [hidden] = "showDragDrop" (click)="cropRound()" class="fas fa-circle-notch"></i>
+          <i [hidden] = "showDragDrop" (click)="zoomIn()" class="fas fa-search-plus"></i>
+          <i [hidden] = "showDragDrop" (click)="zoomOut()" class="fas fa-search-minus"></i>
+          <i [hidden] = "showDragDrop"(click)="rotateLeft()" class="fas fa-undo-alt"></i>
+          <i [hidden] = "showDragDrop" (click)="rotateRight()" class="fas fa-redo-alt"></i>
+          <i [hidden] = "showDragDrop" (click)="move()" class="fas fa-arrows-alt"></i>
+          <i [hidden] = "showDragDrop" (click)="reset()"  class="fas fa-sync-alt"></i>
+        </div>
+      </div>
+
+      <div id="result" [hidden]="!result">
+
+        <div class="ngx-photo-editor-icons-container-nav bg-dark">
+          <i (click)="trash()" [hidden] = "showDragDrop" class="fas fa-trash-alt"></i>
+          <i (click)="countFolsomia()"  [hidden] = "showDragDrop" class="fas fa-braille"></i>
+
+          </div>
+        
+        <div [style.backgroundColor]="darkTheme?'#36393F':'#D8D8D8'" style="padding-bottom: 0">
+            <div [style.height]="canvasHeight+'px'" class="ngx-photo-editor-img-container">
+              <img #image  [src]="outputImage"  crossorigin id="ngx-photo-editor-image">
+            </div>
+          </div>
+          <div class="ngx-photo-editor-icons-container bg-dark">
+            <button type="button" (click)="backgroudLight()" class="btn btn-light btn-sm">Claro</button>
+            <button type="button" (click)="backgroudDefault()"  class="btn btn-primary btn-sm">Padrão</button>
+            <button type="button" (click)="backgroudDark()"  class="btn btn-dark btn-sm">Escuro</button>
+          </div>
+
+
+      </div>
+
+      <div id="resultCount" [hidden]="!resultCount">
+
+        <div class="ngx-photo-editor-icons-container-nav bg-dark">
+          <i (click)="trashResult()" [hidden] = "showDragDrop" class="fas fa-trash-alt"></i>
+          </div>
+        
+        <div [style.backgroundColor]="darkTheme?'#36393F':'#D8D8D8'" style="padding-bottom: 0">
+            <div [style.height]="canvasHeight+'px'" class="ngx-photo-editor-img-container">
+              <div class="loader" [hidden] = "hideLoading"><p>Carregando...</p></div>
+
+              <img #image1 src="{{folsomiaResult.fileResult.fileAsBase64}}"  (load)="onImageLoadResult(image1)"  crossorigin id="ngx-photo-editor-image">
+            </div>
+          </div>
+          <div class="ngx-photo-editor-icons-container bg-dark">
+            <i [hidden] = "showDragDrop" (click)="zoomIn()" class="fas fa-search-plus"></i>
+            <i [hidden] = "showDragDrop" (click)="zoomOut()" class="fas fa-search-minus"></i>
+            <i [hidden] = "showDragDrop"(click)="rotateLeft()" class="fas fa-undo-alt"></i>
+            <i [hidden] = "showDragDrop" (click)="rotateRight()" class="fas fa-redo-alt"></i>
+            <i [hidden] = "showDragDrop" (click)="move()" class="fas fa-arrows-alt"></i>
+            <i [hidden] = "showDragDrop" (click)="reset()"  class="fas fa-sync-alt"></i>
+          </div>
+
+
+      </div>
+      
     </div>
+    <div class="app-card-footer">
+      <div class="row text-center">
+        <div class="col">
+          <h6 class="m-0 text-white">{{folsomiaResult.concetration}}</h6>
+          <span>Concentração</span>
+        </div>
+        <div class="col">
+          <h6 class="m-0 text-white">{{folsomiaResult.totalCountFolsomia}}</h6>
+          <span>Total</span>
+        </div>
+      </div>
+    </div>
+  </app-card>
+  </div>
 
-
+  </div>
 </div>
-
-
-

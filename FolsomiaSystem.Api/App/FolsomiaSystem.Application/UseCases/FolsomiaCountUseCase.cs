@@ -38,9 +38,10 @@ namespace FolsomiaSystem.Application.UseCases
         public  Task<FolsomiaCount> CountFolsomiaCandidaAsync(FolsomiaCountInput folsomiaCountInput, string folsomiaJob, string fileShared)
         {
                 var folsomiacount = _mapper.Map<FolsomiaCount>(folsomiaCountInput);
-                var imageOut = string.Format(@"{0}.jpg", Guid.NewGuid());
+                var idTest = Guid.NewGuid();
+                var imageOut = string.Format(@"{0}.jpg", idTest);
                 var taskFolsomiaCount = new TaskCompletionSource<FolsomiaCount>();
-
+                folsomiacount.IdTest = idTest.ToString();
                 folsomiacount.ImageFolsomiaURL = Path.Combine(fileShared, imageOut);
                 folsomiacount.FileResult = new FileToUpload()
                 {
@@ -71,7 +72,7 @@ namespace FolsomiaSystem.Application.UseCases
                 else
                 {
                     var res = _folsomiaCountJob.FolsomiaCountJobPython(folsomiacount, folsomiaJob);
-                    
+                    folsomiacount.ImageFolsomiaURL = "";
                     
                     _auditLogExternalService.AddNewLogAuditAsync(folsomiacount.AuditLog);
                     _unitOfWork.CommitAsync();

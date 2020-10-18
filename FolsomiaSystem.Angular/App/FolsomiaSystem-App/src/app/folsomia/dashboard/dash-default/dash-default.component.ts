@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild, Input, ElementRef } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {CroppedEvent} from '../../../theme/shared/components/image-editor/image-editor.component';
 import Stepper from 'bs-stepper';
 import {FolsomiaSetupService} from '../../../theme/shared/services/folsomia-setup-service/folsomia-setup.service';
-import { Observable } from 'rxjs';
 import { FolsomiaSetup } from 'src/app/theme/shared/models/folsomia-setup';
+import { FolsomiaCount } from 'src/app/theme/shared/models/folsomia-count';
+import { FolsomiaResult } from 'src/app/theme/shared/components/image-editor/image-editor.component';
 
 @Component({
   selector: 'app-dash-default',
@@ -20,13 +20,19 @@ export class DashDefaultComponent implements OnInit {
   isLinear = false;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
-  private stepper: Stepper;
  public ini:boolean;
  public iniForm: FormGroup;
+  public folsomia: FolsomiaCount;
+  private folsomiaResults:Array<FolsomiaCount>;
+  //Criar contante 
  folsomiaSetup: FolsomiaSetup;  
 
-  next() {
-    this.stepper.next();
+
+  saveCountFolsomia(){
+
+    this.folsomiaResults.push(this.folsomia);
+    this.folsomia = new FolsomiaCount();
+
   }
 
   validation(){
@@ -44,11 +50,12 @@ export class DashDefaultComponent implements OnInit {
     this.ini= false;
   }
 
-  previous() {
-    this.stepper.previous();
-  }
+
   constructor(private _formBuilder: FormBuilder, private folsomiaSetupService:FolsomiaSetupService) {
     this.radioButtons = '1';
+        this.folsomia = new FolsomiaCount();
+    this.folsomia.totalCountFolsomia = 0;
+
     this.checkBox = {
       left: true,
       center: false,
@@ -66,16 +73,11 @@ export class DashDefaultComponent implements OnInit {
 
   }
 
-  public getEditedFile(file: File) {
-
-  }
 
   ngOnInit() {
+
     this.validation();
-    this.stepper = new Stepper(document.querySelector('#stepper1'), {
-      linear: false,
-      animation: true
-    })
+
     this.firstFormGroup = this._formBuilder.group({
       firstCtrl: ['', Validators.required]
     });
@@ -84,7 +86,9 @@ export class DashDefaultComponent implements OnInit {
     });
   }
 
-  
+  folsomiaResult(event: FolsomiaResult) {
+    this.folsomia = event.folsomiaCount;
+  }
 
 
   getFolsomiaSetup (){

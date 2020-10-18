@@ -1,4 +1,5 @@
 import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import { FolsomiaCount } from '../../../models/folsomia-count';
 
 @Component({
   selector: 'app-ui-modal',
@@ -29,6 +30,7 @@ export class UiModalComponent implements OnInit {
     this.visibleAnimate = false;
     setTimeout(() => this.visible = false, 300);
     document.querySelector('body').classList.remove('modal-open');
+    FolsomiaCount
   }
 
   public onContainerClicked(event: MouseEvent): void {

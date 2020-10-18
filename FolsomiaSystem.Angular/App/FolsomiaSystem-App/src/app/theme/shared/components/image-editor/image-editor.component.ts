@@ -1,8 +1,11 @@
-import {Component, EventEmitter, Input, Output, ViewChild, ViewEncapsulation} from '@angular/core';
-import { HttpEventType, HttpClient } from '@angular/common/http';
-
+import {Component,  EventEmitter, Input, Output, ViewChild, ViewEncapsulation} from '@angular/core';
+import { FolsomiaCountService } from '../../services/folsomia-count-service/folsomia-count.service';
+import {FolsomiaCount, FolsomiaCountInput} from '../../models/folsomia-count';
 import Cropper from 'cropperjs';
 import ViewMode = Cropper.ViewMode;
+import { ElementRef } from '@angular/core';
+import { BackgroundImage } from '../../enum/BackgroundImage';
+
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -11,13 +14,23 @@ import ViewMode = Cropper.ViewMode;
   styleUrls: ['./image-editor.component.scss', ],
   encapsulation: ViewEncapsulation.None
 })
-export class ImageEditorComponent {
+export class ImageEditorComponent  {
 
   @ViewChild('imageEditorContent', {static: false}) content;
 
+  @ViewChild('myInput') myInputVariable: ElementRef;
+
   public cropper: Cropper;
+  public cropperResult:Cropper;
   public outputImage: string;
+  public outputResult: string;
+  public folsomiaResult:FolsomiaCount;
+  public backgroundImage:BackgroundImage;
+  public hideLoading:boolean;
+
   prevZoom = 1;
+
+  @Output() folsomiaResultFinal = new EventEmitter<FolsomiaResult>();
 
   @Input() modalTitle = '';
   @Input() aspectRatio = 1;
@@ -26,7 +39,7 @@ export class ImageEditorComponent {
   @Input() mask = true;
   @Input() guides = true;
   @Input() centerIndicator = true;
-  @Input() viewMode: ViewMode = 0;
+  @Input() viewMode: ViewMode = 1;
   @Input() modalSize: size;
   @Input() modalCentered = true;
   @Input() scalable = true;
@@ -42,6 +55,7 @@ export class ImageEditorComponent {
 
   public edit:boolean;
   public result:boolean;
+  public resultCount:boolean;
 
   @Input() resizeToWidth: number;
   @Input() resizeToHeight: number;
@@ -55,12 +69,16 @@ export class ImageEditorComponent {
 
   isFormatDefined = false;
 
-  @Output() imageCropped = new EventEmitter<CroppedEvent>();
+  imageCropped = new EventEmitter<CroppedEvent>();
 
-  constructor() {
 
+  constructor(private folsomiaCountService:FolsomiaCountService) {
+    this.hideLoading = false;
+    this.backgroudDefault();
     this.result = false;
+    this.resultCount = false;
     this.edit= true;
+    this.folsomiaResult = new FolsomiaCount();
   }
 
   @Input() set imageQuality(value: number) {
@@ -135,7 +153,6 @@ export class ImageEditorComponent {
     });
 
 
-    
     this.cropper = new Cropper(image, {
       aspectRatio: this.aspectRatio,
       autoCropArea: this.autoCropArea,
@@ -148,6 +165,30 @@ export class ImageEditorComponent {
       zoomable: this.zoomable,
       cropBoxMovable: this.cropBoxMovable,
       cropBoxResizable: this.cropBoxResizable,
+      background: false
+    });
+  }
+
+  concentrationChanged(value:number){
+      this.folsomiaResult.concetration = value;
+
+  }
+
+
+  onImageLoadResult(image) {
+
+    this.cropperResult = new Cropper(image, {
+      autoCropArea: this.autoCropArea,
+      autoCrop: false,
+      modal: this.mask, // black mask
+      guides: this.guides, // grid
+      center: this.centerIndicator, // center indicator
+      viewMode: this.viewMode,
+      scalable: this.scalable,
+      zoomable: this.zoomable,
+      cropBoxMovable: false,
+      cropBoxResizable: false,
+      dragMode:"move",
       background: false
     });
   }
@@ -211,65 +252,55 @@ export class ImageEditorComponent {
   }
 
   trash(){
+    this.myInputVariable.nativeElement.value = "";
     this.showDragDrop = true;
-    this.outputImage = null;
+    this.resultCount = false;
     this.edit= true;
     this.result = false;
     this.url = null;
-    this.imageUrl = null;
-    this.base64= null;
-    this.imageChanedEvent = null;    
+    this.base64 = null;
+    this.outputImage = null;
     this.cropper.destroy();
+    this.hideLoading = false;
+    this.roundCropper = false;
+    this.cropper.destroy();
+
+  }
+
+
+  backgroudDark(){
+    this.backgroundImage = BackgroundImage.Dark;
+  }
+
+  backgroudDefault(){
+    this.backgroundImage = BackgroundImage.Default;
+  }
+
+  backgroudLight(){
+    this.backgroundImage = BackgroundImage.Light;
+  }
+
+  trashResult(){
+
+    this.trash();
+    
+    this.folsomiaResult = new FolsomiaCount();
+    this.cropperResult.destroy();
+    this.cropper.destroy();
+    
+
   }
 
   
   export() {
     let cropedImage;
+    this.backgroudDefault();
     this.showResult = true;
     this.showDragDrop = false;
     this.result = true;
     this.edit= false;
-    if (this.resizeToWidth && this.resizeToHeight) {
-      cropedImage = this.cropper.getCroppedCanvas({
-        width: this.resizeToWidth,
-        minWidth: 256,
-        minHeight: 256,
-        maxWidth: 4096,
-        maxHeight: 4096,
-        imageSmoothingEnabled: this.imageSmoothingEnabled,
-        imageSmoothingQuality: this.imageSmoothingQuality
-      });
-    } else if (this.resizeToHeight) {
-      cropedImage = this.cropper.getCroppedCanvas({
-        height: this.resizeToHeight,
-        minWidth: 256,
-        minHeight: 256,
-        maxWidth: 4096,
-        maxHeight: 4096,
-        imageSmoothingEnabled: this.imageSmoothingEnabled,
-        imageSmoothingQuality: this.imageSmoothingQuality
-      });
-    } else if (this.resizeToWidth) {
-      cropedImage = this.cropper.getCroppedCanvas({
-        width: this.resizeToWidth,
-        minWidth: 256,
-        minHeight: 256,
-        maxWidth: 4096,
-        maxHeight: 4096,
-        imageSmoothingEnabled: this.imageSmoothingEnabled,
-        imageSmoothingQuality: this.imageSmoothingQuality
-      });
-    } else {
-      cropedImage = this.cropper.getCroppedCanvas({
-        minWidth: 256,
-        minHeight: 256,
-        maxWidth: 4096,
-        maxHeight: 4096,
-        imageSmoothingEnabled: this.imageSmoothingEnabled,
-        imageSmoothingQuality: this.imageSmoothingQuality
-      });
-    }
 
+    cropedImage = this.cropper.getCroppedCanvas();
     if (this.roundCropper){
 
       // Round
@@ -292,6 +323,7 @@ export class ImageEditorComponent {
         });
       }, 'image/' + this.format, this.quality / 100);
     }
+
   }
 
 
@@ -350,6 +382,7 @@ export class ImageEditorComponent {
     this.read(target.files).then((base64) => {
       target.value = '';
       this.showDragDrop = false;
+    
       this.update(base64);
     }).catch((e) => {
       target.value = '';
@@ -376,6 +409,39 @@ export class ImageEditorComponent {
   update(base64) {
     Object.assign(this.base64, base64);
   }
+
+  countFolsomia(){
+
+      this.result = false;
+      this.resultCount = true;
+      var folsomia= new FolsomiaCountInput();
+      this.folsomiaResult = new FolsomiaCount();
+      folsomia.backgroundImage =this.backgroundImage;
+      folsomia.fileAsBase64 = this.outputImage;
+
+      this.count(folsomia);
+
+  }
+
+  count (folsomiaCount: FolsomiaCountInput){
+
+
+      this.outputResult = "";
+       this.folsomiaCountService.countFolsomia(folsomiaCount).subscribe(
+        data => (this.folsomiaResult = data,
+        this.folsomiaResultFinal.emit({
+        
+          folsomiaCount: data
+        }), this.hideLoading = true),
+        error => alert("Erro ao tentar realizar a contagem. Tente novamente!"),
+        () => console.log("acesso a webapi post ok...")
+     );
+
+
+
+  
+     }
+
 }
 
 export interface CroppedEvent {
@@ -383,8 +449,12 @@ export interface CroppedEvent {
   file?: File;
 }
 
+export interface FolsomiaResult {
+  
+  folsomiaCount?:FolsomiaCount;
 
+}
 
-export type imageFormat = 'gif' | 'jpeg' | 'tiff' | 'png' | 'webp' | 'bmp';
+export type imageFormat = 'gif' | 'jpeg' | 'tiff' | 'png' | 'webp' | 'bmp' | 'JPG';
 
 export type size = 'sm' | 'lg';
