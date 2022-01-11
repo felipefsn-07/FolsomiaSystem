@@ -8,7 +8,9 @@ export class AuditLog{
     operationLog:OperationLog;
     statusLog:StatusLog;
 
-
+    constructor(){
+        this.messageLog = "";
+    }
 
 
 }

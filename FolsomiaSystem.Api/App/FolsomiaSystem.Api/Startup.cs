@@ -49,23 +49,6 @@ namespace FolsomiaSystem.Api
          
             var key = Encoding.ASCII.GetBytes(Configuration.GetSection("SecurePassword")["TokenSecret"].ToString());
             
-            services.AddAuthentication(x =>
-            {
-                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-            .AddJwtBearer(x =>
-            {
-                x.RequireHttpsMetadata = false;
-                x.SaveToken = true;
-                x.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false
-                };
-            });
 
 
             // Enable Health Checks
@@ -143,16 +126,6 @@ namespace FolsomiaSystem.Api
                 string caminhoXmlDoc =
                     Path.Combine(caminhoAplicacao, $"{nomeAplicacao}.xml");
 
-                c.AddSecurityDefinition("bearer", new OpenApiSecurityScheme
-                {
-                    Name = "Authorization",
-                    Type = SecuritySchemeType.ApiKey,
-                    Scheme = "bearer",
-                    BearerFormat = "JWT",
-                    In = ParameterLocation.Header,
-                    Description = "JWT Authorization header using the Bearer scheme.",
-                });
-                c.OperationFilter<AuthOperationFilter>();
 
                 c.IncludeXmlComments(caminhoXmlDoc);
             });
@@ -172,12 +145,6 @@ namespace FolsomiaSystem.Api
             {
                 app.UseDeveloperExceptionPage();
             }
-
-
-
-  
-
-
             app.UseHttpsRedirection();
 
             app.UseRouting();

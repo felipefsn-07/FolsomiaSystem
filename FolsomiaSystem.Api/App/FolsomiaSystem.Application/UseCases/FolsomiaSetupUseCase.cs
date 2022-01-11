@@ -38,7 +38,10 @@ namespace FolsomiaSystem.Application.UseCases
         }
 
         public async Task UpdateSetup(FolsomiaSetupInput folsomiaSetupInput) {
+
             var folsomiaSetup = await _folsomiaSetupRepository.GetFirstAsync();
+            folsomiaSetup.MaxConcentration = folsomiaSetupInput.MaxConcentration;
+            folsomiaSetup.MaxTest = folsomiaSetupInput.MaxTest;
             folsomiaSetup.AuditLog.OperationLog = OperationLog.CountFolsomia;
             var taskFolsomiaSetup = new TaskCompletionSource<FolsomiaSetup>();
             var validator = new FolsomiaSetupValidator();

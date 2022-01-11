@@ -10,8 +10,6 @@ namespace FolsomiaSystem.Domain.Entities
         public decimal TotalCountFolsomia { get; set; }
 
         public FileToUpload FileResult { get; set; }
-        public Nullable<BackgroundImage> BackgroundImage { get; set; }
-
 
         public AuditLog AuditLog = new AuditLog
         {

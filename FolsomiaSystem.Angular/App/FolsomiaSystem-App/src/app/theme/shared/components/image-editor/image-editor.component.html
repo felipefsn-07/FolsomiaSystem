@@ -6,7 +6,7 @@
     <div class="form-group row">
       <label for="valorConcetracao" class="col-sm-3 col-form-label">Valor da concentração</label>
       <div class="col-sm-9">
-        <input type="number" (change)="concentrationChanged($event.target.value)" step="0.001" class="form-control" id="substancia" placeholder="Substância">
+        <input type="number" (change)="concentrationChanged($event.target.value)" step="0.001" class="form-control" id="substancia" placeholder="Substância" value="{{folsomiaResult.concetration}}">
       </div>
     </div>
   </form>
@@ -17,23 +17,19 @@
     <div class="app-card-body">
       <div id="edit"  [hidden]="!edit">
       <div class="ngx-photo-editor-icons-container-nav bg-dark">
-        <i (click)="trash()" [hidden] = "showDragDrop" class="fas fa-trash-alt"></i>
-        <i [hidden] = "showDragDrop" (click)="export()" class="fas fa-check"></i>
-
+        <button type="button" class="btn btn-danger btn-sm" (click)="trash()" [hidden] = "showDragDrop" >Excluir</button>
+        <button [hidden] = "showDragDrop" (click)="export()" type="button" class="btn btn-primary btn-sm">Finalizar edição</button>
         </div>
       <div [style.backgroundColor]="darkTheme?'#36393F':'#D8D8D8'" style="padding-bottom: 0">
           <div [style.height]="canvasHeight+'px'" class="ngx-photo-editor-img-container">
             <div
             class="loader"
-            (dragover)="dragover($event)"
-            (drop)="drop($event)"
-            (change)="fileChangeEvent($event)"
+            (change)= "fileChangeEvent($event)"
             [hidden] = "!showDragDrop"
             
             >
             <p>
-              Arreste e solte ou 
-              <label class="browse">Diretório...
+              <label class="browse">Inserir imagem de teste...
                 <input
                   #myInput
                   id="file"
@@ -64,8 +60,8 @@
       <div id="result" [hidden]="!result">
 
         <div class="ngx-photo-editor-icons-container-nav bg-dark">
-          <i (click)="trash()" [hidden] = "showDragDrop" class="fas fa-trash-alt"></i>
-          <i (click)="countFolsomia()"  [hidden] = "showDragDrop" class="fas fa-braille"></i>
+          <button type="button" class="btn btn-danger btn-sm" (click)="trash()" [hidden] = "showDragDrop" >Excluir</button>
+          <button [hidden] = "showDragDrop" (click)="countFolsomia()" type="button" class="btn btn-success btn-sm">Realizar contagem</button>
 
           </div>
         
@@ -75,9 +71,6 @@
             </div>
           </div>
           <div class="ngx-photo-editor-icons-container bg-dark">
-            <button type="button" (click)="backgroudLight()" class="btn btn-light btn-sm">Claro</button>
-            <button type="button" (click)="backgroudDefault()"  class="btn btn-primary btn-sm">Padrão</button>
-            <button type="button" (click)="backgroudDark()"  class="btn btn-dark btn-sm">Escuro</button>
           </div>
 
 
@@ -86,12 +79,20 @@
       <div id="resultCount" [hidden]="!resultCount">
 
         <div class="ngx-photo-editor-icons-container-nav bg-dark">
-          <i (click)="trashResult()" [hidden] = "showDragDrop" class="fas fa-trash-alt"></i>
+          <button type="button" class="btn btn-danger btn-sm" (click)="trash()" [hidden] = "showDragDrop" >Excluir</button>
           </div>
         
         <div [style.backgroundColor]="darkTheme?'#36393F':'#D8D8D8'" style="padding-bottom: 0">
             <div [style.height]="canvasHeight+'px'" class="ngx-photo-editor-img-container">
-              <div class="loader" [hidden] = "hideLoading"><p>Carregando...</p></div>
+              <div class="loader" [hidden] = "hideLoading">
+                   
+                
+                <div class="spinner-border text-info" role="status" id="spinner">
+                    <span class="sr-only">Loading...</span>
+              </div>
+            
+            
+            </div>
 
               <img #image1 src="{{folsomiaResult.fileResult.fileAsBase64}}"  (load)="onImageLoadResult(image1)"  crossorigin id="ngx-photo-editor-image">
             </div>
@@ -101,7 +102,6 @@
             <i [hidden] = "showDragDrop" (click)="zoomOut()" class="fas fa-search-minus"></i>
             <i [hidden] = "showDragDrop"(click)="rotateLeft()" class="fas fa-undo-alt"></i>
             <i [hidden] = "showDragDrop" (click)="rotateRight()" class="fas fa-redo-alt"></i>
-            <i [hidden] = "showDragDrop" (click)="move()" class="fas fa-arrows-alt"></i>
             <i [hidden] = "showDragDrop" (click)="reset()"  class="fas fa-sync-alt"></i>
           </div>
 

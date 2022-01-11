@@ -33,7 +33,7 @@ namespace FolsomiaSystem.Api.V1.Controllers
         }
 
         /// <summary>
-        /// Count Folsomia Candida
+        ///Calculador de folsomia candida
         /// </summary>
         /// <param name="model">Folsomia to be calculated.</param>
         [HttpPost]
@@ -46,7 +46,7 @@ namespace FolsomiaSystem.Api.V1.Controllers
 
                 if (model == null || !ModelState.IsValid) return BadRequest();
                 var item = await _folsomiaCountUseCase.CountFolsomiaCandidaAsync(model, _folsomiaJob, _fileShared);
-                if (item?.TotalCountFolsomia == 0) return BadRequest(item.AuditLog.MessageLog);
+               if (item?.TotalCountFolsomia == 0) return BadRequest(item.AuditLog.MessageLog);
 
                 var urlString = $"{HttpContext.Request.Path}/{item.IdTest}";
                 return Created(urlString, item);

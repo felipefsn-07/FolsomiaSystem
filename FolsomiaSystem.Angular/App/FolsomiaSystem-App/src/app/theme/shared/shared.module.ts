@@ -1,23 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-
-import {AlertModule, BreadcrumbModule, CardModule, ModalModule} from './components';
-import {DataFilterPipe} from './components/data-table/data-filter.pipe';
-import {TodoListRemoveDirective} from './components/todo/todo-list-remove.directive';
-import {TodoCardCompleteDirective} from './components/todo/todo-card-complete.directive';
-import {PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrollbarModule} from 'ngx-perfect-scrollbar';
-import {ClickOutsideModule} from 'ng-click-outside';
-import {SpinnerComponent} from './components/spinner/spinner.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AlertModule, BreadcrumbModule, CardModule, ModalModule } from './components';
+import { DataFilterPipe } from './components/data-table/data-filter.pipe';
+import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { ClickOutsideModule } from 'ng-click-outside';
 import {ImageEditorModule} from './components/image-editor/image-editor.module';
 import {FolsomiaSetupService } from './services/folsomia-setup-service/folsomia-setup.service';
 import { HttpClientModule, HttpClient } from '@angular/common/http'; 
-
-
-
+import { ToastrModule } from 'ngx-toastr';
 import 'hammerjs';
 import 'mousetrap';
 import {GalleryModule} from '@ks89/angular-modal-gallery';
+import { SpinnerComponent } from './components/spinner/spinner.component';
+import { ApexChartComponent } from './components/chart/apex-chart/apex-chart.component';
+import {ApexChartService} from './components/chart/apex-chart/apex-chart.service';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -33,11 +30,11 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     CardModule,
     BreadcrumbModule,
     ModalModule,
+    ToastrModule.forRoot(),
     GalleryModule.forRoot(),
     ClickOutsideModule,
     HttpClientModule
-
-    ],
+  ],
   exports: [
     CommonModule,
     PerfectScrollbarModule,
@@ -47,27 +44,27 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     CardModule,
     BreadcrumbModule,
     ModalModule,
-    GalleryModule,
+    GalleryModule,				  
     DataFilterPipe,
-    TodoListRemoveDirective,
-    TodoCardCompleteDirective,
     ClickOutsideModule,
     SpinnerComponent,
-    ImageEditorModule
+    ApexChartComponent,
+	ImageEditorModule,
+    ToastrModule
   ],
   declarations: [
     DataFilterPipe,
-    TodoListRemoveDirective,
-    TodoCardCompleteDirective,
-    SpinnerComponent
+    SpinnerComponent,
+    ApexChartComponent,
+	  SpinnerComponent
   ],
-
   providers: [
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
     },
-    HttpClientModule, FolsomiaSetupService
+    ApexChartService,
+	HttpClientModule, FolsomiaSetupService
   ]
 })
 export class SharedModule { }

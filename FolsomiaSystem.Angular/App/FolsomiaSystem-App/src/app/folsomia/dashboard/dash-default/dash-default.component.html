@@ -1,5 +1,29 @@
-  <div class="col-xl-12">
+  
+<div class="row">
+  <div class="col-sm-12">
 
+
+    <div class="config bg-info">
+      <div class="text-right">
+          <div class="btn-group card-option dropdown text-white" ngbDropdown>
+            <button type="button" class="btn dropdown-toggle btn-icon text-white" ngbDropdownToggle>
+              <i class="feather icon-settings text-white"></i>
+            </button>
+            <input  hidden   type="file"  #uploader (change)="openTest($event)" accept=".folsys"/>
+
+            <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right" ngbDropdownMenu>
+              <li><a href="javascript:" class="dropdown-item"   (click)="uploader.click()"><i class="feather icon-folder"></i> Abrir...</a></li>
+              <li><a href="javascript:" class="dropdown-item" (click)="saveTest()"><i class="feather icon-save"></i>Salvar...</a></li>
+              <li><a href="javascript:" class="dropdown-item" (click)="ini=true;"><i class="feather icon-edit"></i>Editar informações</a></li>
+            </ul>
+          </div>
+        </div>
+            
+        <br>
+        <br>
+    </div>
+    
+    
     <div class="card" id="basic" *ngIf="ini">
 
       <div class="card-header">
@@ -11,7 +35,7 @@
       </div> 
 
       
-      <form action="javascript:" class="was-validated" [formGroup]="iniForm">
+      <form action="javascript:" class="was-validated" [formGroup]="this.iniForm">
 
       <div class="card-body">
         <div class="row">
@@ -44,9 +68,9 @@
       </div>
       
       <div class="card-footer bg-dark">
-        <div class="col text-right">
+        <div class="col text-right" >
 
-        <button type="button" class="btn btn-info" (click)="startTest()">Iniciar o teste</button>
+        <button  type="button" class="btn btn-info" (click)="startTest()">Iniciar o teste</button>
         </div>
       </div>
     </form>
@@ -60,36 +84,58 @@
           <h5><label id="titulo" >{{ iniForm.value.tituloTeste }}</label></h5>
           </div>
           <div class="col text-right">
-            <button type="button" class="btn btn-icon btn-rounded btn-outline-secondary" (click)="addFolsomiaTest.show()"><i class="feather icon-plus"></i></button>
+            <button type="button" class="btn btn-icon btn-rounded btn-outline-secondary" (click)="addNewTest()"><i class="feather icon-plus"></i></button>
           </div>
         </div>
 
       </div>
       <div class="card-body">
-        <div class="card-columns">
-          <app-card  cardClass="support-bar overflow-hidden" blockClass="p-0" [isCardFooter]="true" footerClass="bg-info text-white">
-            
 
-              <div [style.backgroundColor]="'#36393F'" style="padding-bottom: 0">
+        <div class="card-columns">
+
+
+          <div *ngFor="let fol of folsomiaResults">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-header-right">
+              <div class="btn-group mb-2 mr-2" ngbDropdown [placement]="'bottom-right'">
+                <button type="button" class="btn dropdown-toggle btn-icon" ngbDropdownToggle>
+                  <i class="feather icon-more-horizontal"></i>
+                </button>
+                  <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right" ngbDropdownMenu>
+
+                    <li class="dropdown-item expand-card"  (click)="cardEditAction(fol)"><a href="javascript:"><i class="feather icon-edit"></i> Editar</a></li>
+
+                    <li class="dropdown-item close-card" (click)="cardRemoveAction(fol)"><a href="javascript:"><i class="feather icon-trash"></i> Remover</a></li>
+                
+                </ul>
+              </div>
+          
+            </div>
+            </div>
+            <div class="card-body" [style.backgroundColor]="'#36393F'" style="height: 170px;" >
+              <div [style.backgroundColor]="'#36393F'"  [style.height]="170+'px'" style="padding-bottom: 0">
                 <div [style.height]="170+'px'" class="ngx-photo-editor-img-container">
-                  <img #image  [src]="folsomia.fileResult.fileAsBase64" crossorigin id="ngx-photo-editor-image">
+                  <img #image  [src]="fol.fileResult.fileAsBase64" crossorigin id="ngx-photo-editor-image">
                 </div>
               </div>
-            
-            <div class="app-card-footer">
+            </div>
+
+            <div class="card-footer bg-info text-white">
               <div class="row text-center">
                 <div class="col">
-                  <h6 class="m-0 text-white">{{folsomia.concetration}}</h6>
+                  <h6 class="m-0 text-white">{{fol.concetration}}</h6>
                   <span>Concentração</span>
                 </div>
                 <div class="col">
-                  <h6 class="m-0 text-white">{{folsomia.totalCountFolsomia}}</h6>
+                  <h6 class="m-0 text-white">{{fol.totalCountFolsomia}}</h6>
                   <span>Total</span>
                 </div>
               </div>
             </div>
-          </app-card> 
+          </div> 
         </div>
+      </div>
       </div>
       <div class="card-footer bg-dark">
         <div class="row text-center">
@@ -98,40 +144,57 @@
             <h4 class="m-0 text-white">{{ iniForm.value.substancia }}</h4>
           </div>
           <div class="col">
-            <h6 class="m-0 text-white">0</h6>
+            <h6 class="m-0 text-white">{{media}}</h6>
             <span  class="m-0 text-white">Média</span>
           </div>
         </div>
       </div>
     </div>
-
-  
+</div>
 </div>
 
-
-<app-ui-modal #addFolsomiaTest [dialogClass]="'modal-lg'" >
+<app-ui-modal #modal [dialogClass]="'modal-lg'"  [containerClick]="false">
 
   <div class="app-modal-header">
     <h5 class="modal-title">Nova Concentração </h5>
-    <button type="button" class="close basic-close" data-dismiss="modal" aria-label="Close" (click)="addFolsomiaTest.hide()"><span aria-hidden="true">&times;</span></button>
+    <button type="button" class="close basic-close" data-dismiss="modal" aria-label="Close" (click)="close()"><span aria-hidden="true">&times;</span></button>
   </div>
   
   <div class="app-modal-body">
 
         <image-editor
-        imageFormat=""
+        imageFormat="png"
         [aspectRatio]="1"
         (folsomiaResultFinal)="folsomiaResult($event)"
         [viewMode]="1"
         [resizeToWidth]="700"
+        [cleanTest]="cleanTest"
+        [folsomiaEdit]="folsomiaEdit"
         ></image-editor>
       </div>
 
 
   <div class="app-modal-footer">
-    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="addFolsomiaTest.hide()">Cancelar</button>
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="close()">Cancelar</button>
 
-    <button type="button" class="btn btn-info" (click)="saveCountFolsomia()">Finalizar</button>
+    <button type="button" class="btn btn-info" (click)="saveCountFolsomia();">Finalizar</button>
   </div>  
 </app-ui-modal>
 
+
+<app-ui-modal #modalDelete [dialogClass]="'modal-lg'" >
+
+  <div class="app-modal-header">
+    <h5 class="modal-title">Remover </h5>
+    <button type="button" class="close basic-close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" (click)="modalDelete.hide()">&times;</span></button>
+  </div>
+  
+  <div class="app-modal-body">
+    <h6>Você deseja remover essa imagem? </h6>
+      </div>
+
+  <div class="app-modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="modalDelete.hide()">Não</button>
+    <button type="button" class="btn btn-info" (click)="confirmDelete()">Sim</button>
+  </div>  
+</app-ui-modal>

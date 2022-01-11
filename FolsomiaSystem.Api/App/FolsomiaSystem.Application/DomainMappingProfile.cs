@@ -20,8 +20,6 @@ namespace FolsomiaSystem.Application
           .ForMember(p => p.IdTest, p => p.MapFrom(m => new FolsomiaCountInput
           {
               IdTest = m.IdTest,
-              BackgroundImage = m.BackgroundImage
-
           }));
 
             CreateMap<FolsomiaSetup, FolsomiaSetupInput>();
@@ -46,8 +44,6 @@ namespace FolsomiaSystem.Application
             .ForMember(p => p.IdTest, p => p.MapFrom(m => new FolsomiaCount
             {
                 IdTest = m.IdTest,
-                BackgroundImage = m.BackgroundImage
-
             }));
 
             CreateMap<AuditLogInput, AuditLog>();

@@ -1,7 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 /*import { AnimationBuilder, AnimationService } from 'css-animator';*/
 import { animate, AUTO_STYLE, state, style, transition, trigger } from '@angular/animations';
+import { FolsomiaCount } from '../../models/folsomia-count';
+import { Output } from '@angular/core';
 
 @Component({
   selector: 'app-card',
@@ -54,6 +56,7 @@ export class CardComponent implements OnInit {
   @Input() isCardFooter: boolean;
   @Input() footerClass: string;
 
+
   public animation: string;
   public fullIcon: string;
   public isAnimating: boolean;
@@ -90,6 +93,8 @@ export class CardComponent implements OnInit {
     this.loadCard = false;
 
     this.cardRemove = 'open';
+
+
   }
 
   ngOnInit() {
@@ -156,6 +161,8 @@ export class CardComponent implements OnInit {
 
   
   cardEditAction() {
+
+
     if (!this.hidRemove){
 
     }

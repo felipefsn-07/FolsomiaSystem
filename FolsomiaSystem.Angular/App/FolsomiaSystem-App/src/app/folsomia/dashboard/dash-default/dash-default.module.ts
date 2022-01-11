@@ -4,6 +4,7 @@ import { DashDefaultRoutingModule } from './dash-default-routing.module';
 import { DashDefaultComponent } from './dash-default.component';
 import {SharedModule} from '../../../theme/shared/shared.module';
 import {NgbButtonsModule, NgbDropdownModule, NgbTooltipModule, NgbCollapseModule,NgbTabsetModule } from '@ng-bootstrap/ng-bootstrap';
+import { FileSaverModule } from 'ngx-filesaver';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import {NgbButtonsModule, NgbDropdownModule, NgbTooltipModule, NgbCollapseModule
     NgbDropdownModule,
     NgbTooltipModule ,
     NgbTabsetModule,
-    NgbCollapseModule
+    NgbCollapseModule,
+    FileSaverModule
   ]
 })
 export class DashDefaultModule { }

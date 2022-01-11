@@ -27,10 +27,6 @@ namespace FolsomiaSystem.Infra.IoC
             services.AddScoped<IFolsomiaSetupRepository, FolsomiaSetupRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-            // Infra - Data - Login
-            services.AddScoped<IAdminUserRepository, AdminUserRepository>();
-
-
             // Infra - Caching (singleton)
             services.AddSingleton<ICache<CredentialSafeConfig>, MemoryCache<CredentialSafeConfig>>();
 

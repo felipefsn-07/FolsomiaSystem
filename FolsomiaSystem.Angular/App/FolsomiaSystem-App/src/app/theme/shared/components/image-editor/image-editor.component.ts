@@ -1,10 +1,9 @@
-import {Component,  EventEmitter, Input, Output, ViewChild, ViewEncapsulation} from '@angular/core';
+import {Component,  EventEmitter, Input, Output, ViewChild, ViewEncapsulation, OnChanges} from '@angular/core';
 import { FolsomiaCountService } from '../../services/folsomia-count-service/folsomia-count.service';
 import {FolsomiaCount, FolsomiaCountInput} from '../../models/folsomia-count';
 import Cropper from 'cropperjs';
 import ViewMode = Cropper.ViewMode;
 import { ElementRef } from '@angular/core';
-import { BackgroundImage } from '../../enum/BackgroundImage';
 
 
 @Component({
@@ -14,19 +13,52 @@ import { BackgroundImage } from '../../enum/BackgroundImage';
   styleUrls: ['./image-editor.component.scss', ],
   encapsulation: ViewEncapsulation.None
 })
-export class ImageEditorComponent  {
+export class ImageEditorComponent  implements OnChanges{
+
 
   @ViewChild('imageEditorContent', {static: false}) content;
 
   @ViewChild('myInput') myInputVariable: ElementRef;
+  @ViewChild('image1') image: ElementRef;
+
 
   public cropper: Cropper;
   public cropperResult:Cropper;
   public outputImage: string;
   public outputResult: string;
   public folsomiaResult:FolsomiaCount;
-  public backgroundImage:BackgroundImage;
-  public hideLoading:boolean;
+  @Input() folsomiaEdit:FolsomiaCount;
+  public hideLoading!:boolean;
+  
+
+
+  ngOnChanges() {
+    // changes.prop contains the old and the new value...
+
+    if (this.folsomiaEdit.fileResult.fileAsBase64!=""){
+      this.trash();
+      this.editFolsomia(this.folsomiaEdit);
+      
+    }
+    if (this.cleanTest==true){
+      this.folsomiaResult = new FolsomiaCount();
+      this.trash();
+    }
+  }
+
+
+  editFolsomia(folsomiaEdit:FolsomiaCount){
+    this.hideLoading = true;
+    this.resultCount = true;
+    this.result = false;
+    this.edit = false;
+    this.showDragDrop = false;
+    this.folsomiaResult =folsomiaEdit;
+    this.folsomiaResultFinal.emit({
+        
+      folsomiaCount: folsomiaEdit
+    });
+  }
 
   prevZoom = 1;
 
@@ -49,6 +81,8 @@ export class ImageEditorComponent  {
   @Input() darkTheme = true;
   @Input() roundCropper = false;
   @Input() canvasHeight = 300;
+  @Input() cleanTest:boolean;
+
 
   public showDragDrop = true;
   public showResult = false;
@@ -74,12 +108,14 @@ export class ImageEditorComponent  {
 
   constructor(private folsomiaCountService:FolsomiaCountService) {
     this.hideLoading = false;
-    this.backgroudDefault();
+    this.cleanTest = false;
     this.result = false;
     this.resultCount = false;
     this.edit= true;
     this.folsomiaResult = new FolsomiaCount();
+    this.cropper = null;
   }
+
 
   @Input() set imageQuality(value: number) {
     if (value > 0 && value <= 100) {
@@ -194,11 +230,19 @@ export class ImageEditorComponent  {
   }
 
   rotateRight() {
-    this.cropper.rotate(45);
+      if (this.edit == true && this.resultCount==false){
+        this.cropper.rotate(90);
+      }else if(this.edit == false && this.resultCount==true){
+        this.cropperResult.rotate(90);
+      }
   }
 
   rotateLeft() {
-    this.cropper.rotate(-45);
+    if (this.edit == true && this.resultCount==false){
+      this.cropper.rotate(-90);
+    }else if(this.edit == false && this.resultCount==true){
+      this.cropperResult.rotate(-90);
+    }
   }
 
   crop() {
@@ -232,69 +276,74 @@ export class ImageEditorComponent  {
 
 
   zoomIn() {
-    this.cropper.zoom(0.1);
+    if (this.edit == true && this.resultCount==false){
+      this.cropper.zoom(0.1);
+    }else if(this.edit == false && this.resultCount==true){
+      this.cropperResult.zoom(0.1);
+    }
+    
   }
 
   zoomOut() {
-    this.cropper.zoom(-0.1);
+
+    if (this.edit == true && this.resultCount==false){
+      this.cropper.zoom(-0.1);
+    }else if(this.edit == false && this.resultCount==true){
+      this.cropperResult.zoom(-0.1);
+    }
   }
 
   flipH() {
-    this.cropper.scaleX(-this.cropper.getImageData().scaleX);
+    if (this.edit == true && this.resultCount==false){
+      this.cropper.scaleX(-this.cropper.getImageData().scaleX);
+    }else if(this.edit == false && this.resultCount==true){
+      this.cropperResult.scaleX(-this.cropperResult.getImageData().scaleX);
+    }
   }
 
   flipV() {
-    this.cropper.scaleY(-this.cropper.getImageData().scaleY);
+    if (this.edit == true && this.resultCount==false){
+      this.cropper.scaleY(-this.cropper.getImageData().scaleY);
+    }else if(this.edit == false && this.resultCount==true){
+      this.cropperResult.scaleY(-this.cropperResult.getImageData().scaleY);
+    }
   }
 
   reset() {
-    this.cropper.reset();
+    if (this.edit == true && this.resultCount==false){
+      this.cropper.reset();
+    }else if(this.edit == false && this.resultCount==true){
+      this.cropperResult.reset();
+    }
   }
 
   trash(){
-    this.myInputVariable.nativeElement.value = "";
+    
     this.showDragDrop = true;
-    this.resultCount = false;
     this.edit= true;
     this.result = false;
     this.url = null;
     this.base64 = null;
     this.outputImage = null;
-    this.cropper.destroy();
     this.hideLoading = false;
     this.roundCropper = false;
-    this.cropper.destroy();
+    if (this.cropper != null){
+      this.cropper.destroy();
+      this.myInputVariable.nativeElement.value = "";
+    }
+    if(this.resultCount==true){
+      this.myInputVariable.nativeElement.value = "";
+      this.resultCount = false;
 
-  }
-
-
-  backgroudDark(){
-    this.backgroundImage = BackgroundImage.Dark;
-  }
-
-  backgroudDefault(){
-    this.backgroundImage = BackgroundImage.Default;
-  }
-
-  backgroudLight(){
-    this.backgroundImage = BackgroundImage.Light;
-  }
-
-  trashResult(){
-
-    this.trash();
-    
-    this.folsomiaResult = new FolsomiaCount();
-    this.cropperResult.destroy();
-    this.cropper.destroy();
-    
-
+      this.folsomiaResult = new FolsomiaCount();
+      this.cropperResult.destroy();
+      //this.cropper.destroy();
+    }
   }
 
   
   export() {
     let cropedImage;
-    this.backgroudDefault();
     this.showResult = true;
     this.showDragDrop = false;
     this.result = true;
@@ -327,29 +376,6 @@ export class ImageEditorComponent  {
   }
 
 
-  read(files) {
-    return new Promise((resolve, reject) => {
-      if (!files || files.length === 0) {
-        resolve();
-        return;
-      }
-      const file = files[0];
-      if (/^image\/\w+$/.test(file.type)) {
-        if (URL) {
-          resolve({
-            loaded: true,
-            name: file.name,
-            type: file.type,
-            url: URL.createObjectURL(file),
-          });
-        } else {
-          reject(new Error('Your browser is not supported.'));
-        }
-      } else {
-        reject(new Error('Please choose an image file.'));
-      }
-    });
-  }
 
 
   imageChangedEvent: any;
@@ -378,31 +404,6 @@ export class ImageEditorComponent  {
     return canvas;
   }
 
-  change({ target }) {
-    this.read(target.files).then((base64) => {
-      target.value = '';
-      this.showDragDrop = false;
-    
-      this.update(base64);
-    }).catch((e) => {
-      target.value = '';
-      this.alert(e);
-    });
-  }
-
-  dragover(e: { preventDefault: () => void; }) {
-    e.preventDefault();
-  }
-  drop(e: { preventDefault: () => void; dataTransfer: { files: any; }; }) {
-    e.preventDefault();
-    this.read(e.dataTransfer.files)
-      .then((base64) => {
-        this.base64 = base64;
-        this.showDragDrop = false;
-      })
-      .catch(this.alert);
-
-  }
   alert(e) {
     window.alert(e && e.message ? e.message : e);
   }
@@ -415,11 +416,12 @@ export class ImageEditorComponent  {
       this.result = false;
       this.resultCount = true;
       var folsomia= new FolsomiaCountInput();
+      
       this.folsomiaResult = new FolsomiaCount();
-      folsomia.backgroundImage =this.backgroundImage;
       folsomia.fileAsBase64 = this.outputImage;
 
       this.count(folsomia);
+
 
   }
 
@@ -428,18 +430,20 @@ export class ImageEditorComponent  {
 
       this.outputResult = "";
        this.folsomiaCountService.countFolsomia(folsomiaCount).subscribe(
-        data => (this.folsomiaResult = data,
+        data => (
+          data.concetration = this.folsomiaResult.concetration,
+          this.folsomiaResult = data,
+      
         this.folsomiaResultFinal.emit({
         
           folsomiaCount: data
-        }), this.hideLoading = true),
+        }), this.hideLoading = true,
+        console.log(data.auditLog.messageLog)
+        ),
         error => alert("Erro ao tentar realizar a contagem. Tente novamente!"),
         () => console.log("acesso a webapi post ok...")
      );
-
-
-
-  
+ 
      }
 
 }

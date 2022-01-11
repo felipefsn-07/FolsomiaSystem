@@ -10,7 +10,7 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('ng-datta-able app is running!');
+    expect(page.getTitleText()).toEqual('Welcome to next-v8.1.2-lite!');
   });
 
   afterEach(async () => {

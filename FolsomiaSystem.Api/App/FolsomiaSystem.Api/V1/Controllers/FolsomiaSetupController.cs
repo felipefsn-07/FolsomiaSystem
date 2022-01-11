@@ -22,7 +22,7 @@ namespace FolsomiaSystem.Api.V1.Controllers
 
 
         /// <summary>
-        /// Get Setup
+        /// Buscar configurações do sistema
         /// </summary>
         /// <param name="apiVersion">API version. It`s automatically populated if usign URL versioning.</param>
         /// <returns>Get Setup</returns>
@@ -39,7 +39,7 @@ namespace FolsomiaSystem.Api.V1.Controllers
         }
 
         /// <summary>
-        /// Update Setup
+        /// Alterar configurações do sistema
         /// </summary>
         /// <param name="apiVersion">API version. It`s automatically populated if usign URL versioning.</param>
         /// <param name="folsomiaSetupInput">Setup</param>
@@ -47,8 +47,8 @@ namespace FolsomiaSystem.Api.V1.Controllers
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.InternalServerError)]
-        [Authorize]
-        public virtual async Task<IActionResult> UpdateToVip(ApiVersion apiVersion, [FromRoute] FolsomiaSetupInput folsomiaSetupInput)
+   
+        public virtual async Task<IActionResult> UpdateToVip(ApiVersion apiVersion, [FromForm] FolsomiaSetupInput folsomiaSetupInput)
         {
             await _folsomiaSetupUseCase.UpdateSetup(folsomiaSetupInput);
             return Ok();

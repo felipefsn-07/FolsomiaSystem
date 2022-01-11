@@ -19,10 +19,6 @@ namespace FolsomiaSystem.Application.Validators
                   .Matches(@"^.*\.(jpg|jpeg|png|JPG|JPEG|PNG)$").WithMessage("ImageFolsomiaURL is invalid");
 
 
-            RuleFor(p => p.BackgroundImage)
-                .NotEmpty().WithMessage("Required field")
-                .IsInEnum().WithMessage("BackgroundImage is invalid");
-
         }
 
     }

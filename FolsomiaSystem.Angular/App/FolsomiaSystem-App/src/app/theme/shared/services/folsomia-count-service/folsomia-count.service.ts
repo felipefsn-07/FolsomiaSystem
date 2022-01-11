@@ -6,6 +6,7 @@ import {FolsomiaCount, FolsomiaCountInput } from '../../models/folsomia-count';
 import { environment } from '../../../../../environments/environment'
 import { catchError } from 'rxjs/operators';
 import 'rxjs/add/operator/map';
+import { ResponseContentType } from '@angular/http/src/enums';
 
 
 var httpOptions = {headers: new HttpHeaders({"Content-Type": "application/json"})};
@@ -30,41 +31,8 @@ export class FolsomiaCountService {
   public countFolsomia(folsomiaCount:FolsomiaCountInput) {
 
       return this.http.post<FolsomiaCount>(this.accessPointUrl, JSON.stringify(folsomiaCount), {headers: this.headers})
-
-
 }
 
-
-/*
-  public async countFolsomia(folsomiaCount:FolsomiaCountInput) {
-    
-
-
-    const t = await this.http.post<FolsomiaCount>(this.accessPointUrl, JSON.stringify(folsomiaCount), {headers: this.headers}).toPromise();
-    this.folsomiaResult = new FolsomiaCount();
-    this.folsomiaResult.fileResult.fileAsBase64 = t.fileResult.fileAsBase64;
-    this.folsomiaResult.idTest = t.idTest;
-    this.folsomiaResult.totalCountFolsomia = t.totalCountFolsomia;
-    console.log(this.folsomiaResult.idTest);
-
-    return this.folsomiaResult;
-}
-
-
-  public  countFolsomia(folsomiaCount:FolsomiaCountInput): Observable<FolsomiaCount> {
-    return this.http.post<FolsomiaCount>(this.accessPointUrl, folsomiaCount,{headers: this.headers});
-  }*/
-
- /* public async countFolsomia(folsomiaCount:FolsomiaCountInput) {
-    try {
-     return this.http
-        .post(this.accessPointUrl, JSON.stringify(folsomiaCount), {headers: this.headers}).toPromise();
-
-      } catch (error) {
-      //await this.handleError(error);
-    }
-  }*/
-  
 
   public count(folsomiaCount:FolsomiaCountInput) {
     return this.http.post(this.accessPointUrl, folsomiaCount, {headers: this.headers})

@@ -14,18 +14,6 @@ namespace FolsomiaSystem.Infra.ExternalServices.FolsomiaCountJob
 
     public class FolsomiaCountJob : IFolsomiaCountJob
     {
-         protected string ParameterBackground(FolsomiaCount backgroundImage)
-        {
-
-            if (backgroundImage.BackgroundImage == BackgroundImage.Dark)
-            {
-                return "-d";
-            } else if (backgroundImage.BackgroundImage == BackgroundImage.Light)
-            {
-                return "-l";
-            }
-            return "";
-        }
 
         protected int ResultadoContagem (JObject res)
         {
@@ -65,15 +53,16 @@ namespace FolsomiaSystem.Infra.ExternalServices.FolsomiaCountJob
         private Task<string> ExecuteJob(FolsomiaCount folsomiaCount, string localPythonFolsomiaCount)
         {
             var tcs = new TaskCompletionSource<string>();
-            string args = localPythonFolsomiaCount + " " + 
-                          folsomiaCount.ImageFolsomiaURL + " "+
-                          ParameterBackground(folsomiaCount)+ 
-                          " -ir " + 
-                          folsomiaCount.ImageFolsomiaURL;
-
-            var process = new Process
+            try
             {
-                StartInfo = {
+                string args = localPythonFolsomiaCount + " " +
+                              folsomiaCount.ImageFolsomiaURL + " " +
+                              " -ir " +
+                              folsomiaCount.ImageFolsomiaURL;
+
+                var process = new Process
+                {
+                    StartInfo = {
                 FileName = "python",
                 Arguments = args,
                 UseShellExecute = false,
@@ -81,21 +70,26 @@ namespace FolsomiaSystem.Infra.ExternalServices.FolsomiaCountJob
                 RedirectStandardOutput = true
 
             },
-                EnableRaisingEvents = true
-            };
+                    EnableRaisingEvents = true
+                };
 
-            process.Exited += (sender, args) =>
+                process.Exited += (sender, args) =>
+                {
+                    StreamReader reader = process.StandardOutput;
+                    string output = reader.ReadToEnd();
+                    tcs.SetResult(output);
+                    process.Dispose();
+                };
+                process.Start();
+                process.WaitForExit();
+                process.Close();
+                return tcs.Task;
+            }catch (Exception ex)
             {
-                StreamReader reader = process.StandardOutput;
-                string output = reader.ReadToEnd();
-                tcs.SetResult(output);
-                process.Dispose();
-            };
-            process.Start();
-            process.WaitForExit();
-            process.Close();
-            return tcs.Task;
 
+                return tcs.Task;
+
+            }
         }
 
         private FolsomiaCount ResultImage64(FolsomiaCount folsomiaCount)

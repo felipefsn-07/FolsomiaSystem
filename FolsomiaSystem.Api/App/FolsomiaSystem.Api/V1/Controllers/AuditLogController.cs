@@ -20,7 +20,7 @@ namespace FolsomiaSystem.Api.V1.Controllers
         }
 
         /// <summary>
-        /// Gets the list of Audit Log
+        /// Busca lista dos logs de auditoria salvos no banco
         /// </summary>
         /// <param name="apiVersion">API version. It`s automatically populated if usign URL versioning.</param>
         /// <param name="model">Paging information</param>
@@ -28,7 +28,7 @@ namespace FolsomiaSystem.Api.V1.Controllers
         [HttpGet]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.InternalServerError)]
-        [Authorize]
+ 
         public virtual async Task<IActionResult> GetList(ApiVersion apiVersion, [FromQuery] PagedListIntput model)
         {
             var result = await _auditLogExternalService.GetAllAsync(model);
@@ -38,7 +38,7 @@ namespace FolsomiaSystem.Api.V1.Controllers
 
 
         /// <summary>
-        /// Gets the list of Audit Log by filter
+        /// Lista de auditoria por filtro
         /// </summary>
         /// <param name="apiVersion">API version. It`s automatically populated if usign URL versioning.</param>
         /// <param name="filter">Filters</param>
@@ -47,7 +47,7 @@ namespace FolsomiaSystem.Api.V1.Controllers
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.InternalServerError)]
-        [Authorize]
+     
         public virtual async Task<IActionResult> GetList(ApiVersion apiVersion, [FromQuery] PagedListIntput model, [FromBody] AuditLogInput filter)
         {
             var result = await _auditLogExternalService.GetAllAsync(filter, model);

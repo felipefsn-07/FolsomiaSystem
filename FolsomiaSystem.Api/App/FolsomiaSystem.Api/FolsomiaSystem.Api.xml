@@ -9,25 +9,9 @@
             Base controller.
             </summary>
         </member>
-        <member name="M:FolsomiaSystem.Api.V1.Controllers.AdminUserController.Login(Microsoft.AspNetCore.Mvc.ApiVersion,FolsomiaSystem.Application.DTOs.AdminUserInputs)">
-            <summary>
-            Login
-            </summary>
-            <param name="apiVersion">API version. It`s automatically populated if usign URL versioning.</param>
-            <param name="user">User</param>
-            <returns>login</returns>
-        </member>
-        <member name="M:FolsomiaSystem.Api.V1.Controllers.AdminUserController.AlterAdminPassword(Microsoft.AspNetCore.Mvc.ApiVersion,FolsomiaSystem.Application.DTOs.AlterAdminUserInputs)">
-            <summary>
-            Alter password
-            </summary>
-            <param name="apiVersion">API version. It`s automatically populated if usign URL versioning.</param>
-            <param name="alterUser">alterUser</param>
-            <returns>Alter password</returns>
-        </member>
         <member name="M:FolsomiaSystem.Api.V1.Controllers.AuditLogController.GetList(Microsoft.AspNetCore.Mvc.ApiVersion,FolsomiaSystem.Application.DTOs.PagedListIntput)">
             <summary>
-            Gets the list of Audit Log
+            Busca lista dos logs de auditoria salvos no banco
             </summary>
             <param name="apiVersion">API version. It`s automatically populated if usign URL versioning.</param>
             <param name="model">Paging information</param>
@@ -35,7 +19,7 @@
         </member>
         <member name="M:FolsomiaSystem.Api.V1.Controllers.AuditLogController.GetList(Microsoft.AspNetCore.Mvc.ApiVersion,FolsomiaSystem.Application.DTOs.PagedListIntput,FolsomiaSystem.Application.DTOs.AuditLogInput)">
             <summary>
-            Gets the list of Audit Log by filter
+            Lista de auditoria por filtro
             </summary>
             <param name="apiVersion">API version. It`s automatically populated if usign URL versioning.</param>
             <param name="filter">Filters</param>
@@ -43,21 +27,21 @@
             <returns>A collection of LogAudit</returns>
         </member>
         <member name="M:FolsomiaSystem.Api.V1.Controllers.FolsomiaCountController.CountFolsomiaCandida(FolsomiaSystem.Application.DTOs.FolsomiaCountInput)">
-            <summary>
-            Count Folsomia Candida
-            </summary>
-            <param name="model">Folsomia to be calculated.</param>
+             <summary>
+            Calculador de folsomia candida
+             </summary>
+             <param name="model">Folsomia to be calculated.</param>
         </member>
         <member name="M:FolsomiaSystem.Api.V1.Controllers.FolsomiaSetupController.GetList(Microsoft.AspNetCore.Mvc.ApiVersion)">
             <summary>
-            Get Setup
+            Buscar configurações do sistema
             </summary>
             <param name="apiVersion">API version. It`s automatically populated if usign URL versioning.</param>
             <returns>Get Setup</returns>
         </member>
         <member name="M:FolsomiaSystem.Api.V1.Controllers.FolsomiaSetupController.UpdateToVip(Microsoft.AspNetCore.Mvc.ApiVersion,FolsomiaSystem.Application.DTOs.FolsomiaSetupInput)">
             <summary>
-            Update Setup
+            Alterar configurações do sistema
             </summary>
             <param name="apiVersion">API version. It`s automatically populated if usign URL versioning.</param>
             <param name="folsomiaSetupInput">Setup</param>
